@@ -1,9 +1,6 @@
 package com.example.pdp_meal.model;
 
 
-import com.example.pdp_meal.enums.Department;
-import com.example.pdp_meal.enums.Position;
-import com.example.pdp_meal.enums.Role;
 import com.example.pdp_meal.enums.Status;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,10 +18,15 @@ public class AuthUser {
     private String fullName;
     @Column(nullable = false, unique = true)
     private String phone;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+    private String password;
     private String chatId;
     private Status status;
     private String role;
     private String department;
     private String position;
+    private boolean active;
 
 }
