@@ -9,5 +9,4 @@ public class PdpMealApplication {
     public static void main(String[] args) {
         SpringApplication.run(PdpMealApplication.class, args);
     }
-
 }

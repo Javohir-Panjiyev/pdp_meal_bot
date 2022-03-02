@@ -16,3 +16,12 @@ spring:
         format_sql: true
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
 
+spring:
+  profiles:
+    active: prod
+
+  thymeleaf:
+    cache: false
+  servlet:
+    multipart:
+      max-file-size: 100MB
