@@ -1,20 +1,20 @@
-package com.example.pdp_meal.model;
+package com.example.pdp_meal.entity;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.Instant;
-
 
 @Getter
 @Setter
 @Entity
-public class DailyMenu {
+public class FeedBack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer mealId;
-    private Instant date;
 
+    @Column(nullable = false)
+    private String message;
+
+    private String type;
 }
