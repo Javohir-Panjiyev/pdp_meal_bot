@@ -1,21 +1,25 @@
-package com.example.pdp_meal.model;
+package com.example.pdp_meal.entity;
 
-import com.example.pdp_meal.enums.FedBackType;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+
 
 @Getter
 @Setter
 @Entity
-public class FeedBack {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
-    private String message;
+    private Integer userId;
 
-    private String type;
+    private Integer mealId;
+
+    private Timestamp date;
+
 }

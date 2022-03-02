@@ -1,4 +1,4 @@
-package com.example.pdp_meal.model;
+package com.example.pdp_meal.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,5 +19,10 @@ public class Meal {
 
     private String pathPhoto;
 
-    private Instant createDate=Instant.now();
+    private Instant createDate = Instant.now();
+
+    private String pathPicture;
+    private Long fileId;
+    private String ingredient;
+
 }
