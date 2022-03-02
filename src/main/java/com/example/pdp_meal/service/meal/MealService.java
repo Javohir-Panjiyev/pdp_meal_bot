@@ -19,19 +19,23 @@ import java.util.List;
 
 @Service
 public class MealService extends AbstractService<MealRepository, MealMapper, MealValidator>
-        implements GenericCrudService<Meal, MealDto, MealCreateDto, MealUpdateDto, Long> {
+        implements GenericCrudService<Meal, MealDto, MealCreateDto, MealUpdateDto, Integer> {
 
-    protected MealService(MealRepository repository, MealMapper mapper, MealValidator validator) {
+    protected MealService(
+            MealRepository repository,
+            MealMapper mapper,
+            MealValidator validator) {
         super(repository, mapper, validator);
     }
 
+
     @Override
-    public Long create(MealCreateDto createDto) {
+    public Integer create(MealCreateDto createDto) {
         return null;
     }
 
     @Override
-    public Void delete(Long id) {
+    public Void delete(Integer id) {
         return null;
     }
 
@@ -46,7 +50,7 @@ public class MealService extends AbstractService<MealRepository, MealMapper, Mea
     }
 
     @Override
-    public MealDto get(Long id) {
+    public MealDto get(Integer id) {
         return null;
     }
 }

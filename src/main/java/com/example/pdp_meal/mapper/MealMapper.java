@@ -1,5 +1,10 @@
 package com.example.pdp_meal.mapper;
 
+import com.example.pdp_meal.dto.meal.MealCreateDto;
+import com.example.pdp_meal.dto.meal.MealDto;
+import com.example.pdp_meal.dto.meal.MealUpdateDto;
+import com.example.pdp_meal.entity.Meal;
+import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
 /**
@@ -7,6 +12,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-@org.mapstruct.Mapper(componentModel = "spring")
-public interface MealMapper extends Mapper{
+@Mapper(componentModel = "spring")
+public interface MealMapper extends BaseMapper<Meal, MealDto, MealCreateDto, MealUpdateDto> {
+
 }
