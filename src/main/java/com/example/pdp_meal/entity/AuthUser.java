@@ -1,4 +1,4 @@
-package com.example.pdp_meal.entity;
+package com.example.pdp_meal.model;
 
 
 import com.example.pdp_meal.enums.Status;
@@ -14,17 +14,19 @@ public class AuthUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable = false, unique = true)
-    private String username;
+    @Column(nullable = false)
+    private String fullName;
     @Column(nullable = false, unique = true)
     private String phone;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+    private String password;
     private String chatId;
     private Status status;
     private String role;
     private String department;
     private String position;
-    private boolean deleted;
-    @Column(nullable = false)
-    private String password;
+    private boolean active;
 
 }
