@@ -1,4 +1,4 @@
-package com.example.pdp_meal.model;
+package com.example.pdp_meal.entity;
 
 
 import com.example.pdp_meal.enums.Status;

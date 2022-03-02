@@ -17,16 +17,14 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MealDto extends GenericDto {
-    @Column(nullable = false)
+
     private String name;
+
+    private String ingredient;
 
     private String pathPhoto;
 
-    private String pathPicture;
-
     private String fileId;
-
-    private String ingredient;
 
     private Instant createDate = Instant.now();
 }

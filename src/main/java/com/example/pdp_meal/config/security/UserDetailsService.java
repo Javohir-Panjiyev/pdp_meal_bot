@@ -1,7 +1,7 @@
 package com.example.pdp_meal.config.security;
 
 
-import com.example.pdp_meal.model.AuthUser;
+import com.example.pdp_meal.entity.AuthUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
 /**
@@ -17,15 +19,15 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MealCreateDto implements BaseDto {
-    @Column(nullable = false)
+
+    @NotBlank
     private String name;
-
-    private String pathPhoto;
-
-    private Instant createDate = Instant.now();
-
-    private String fileId;
 
     private String ingredient;
 
+    @NotBlank
+    private String pathPhoto;
+
+    @NotBlank
+    private String fileId;
 }
