@@ -1,6 +1,7 @@
 package com.example.pdp_meal.telegram;
 
 import com.example.pdp_meal.telegram.handlers.UpdateHandler;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendAnimation;
@@ -12,8 +13,14 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class pdp_meal extends TelegramLongPollingBot {
 
-    private static final pdp_meal instance=new pdp_meal();
-    public static final UpdateHandler updateHandler = UpdateHandler.getInstance();
+
+    private final   UpdateHandler updateHandler ;
+
+
+    public pdp_meal(UpdateHandler updateHandler) {
+        this.updateHandler = updateHandler;
+    }
+
 
     @Override
     public String getBotUsername() {
@@ -73,4 +80,5 @@ public class pdp_meal extends TelegramLongPollingBot {
     public static pdp_meal getInstance() {
         return instance;
     }
+
 }

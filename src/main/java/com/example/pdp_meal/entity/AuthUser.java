@@ -21,6 +21,7 @@ public class AuthUser {
 
     @Column(nullable = false, unique = true)
     private String username;
+    @Column(nullable = false)
     private String password;
     private String chatId;
     private Status status;
