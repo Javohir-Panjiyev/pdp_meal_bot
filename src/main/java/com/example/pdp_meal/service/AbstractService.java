@@ -1,9 +1,9 @@
 package com.example.pdp_meal.service;
 
 
+import com.example.pdp_meal.mapper.Mapper;
+import com.example.pdp_meal.validator.Validator;
 import org.springframework.data.jpa.repository.JpaRepository;
-import uz.master.demotest.mappers.Mapper;
-import uz.master.demotest.validator.Validator;
 
 /**
  * @param <R> repository

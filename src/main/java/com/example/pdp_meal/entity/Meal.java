@@ -21,8 +21,8 @@ public class Meal {
 
     private Instant createDate = Instant.now();
 
-    private String pathPicture;
-    private Long fileId;
+    private String fileId;
+
     private String ingredient;
 
 }
