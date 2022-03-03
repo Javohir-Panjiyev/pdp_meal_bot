@@ -5,12 +5,10 @@ import com.example.pdp_meal.dto.dailyMenu.DailyMenuDto;
 import com.example.pdp_meal.dto.dailyMenu.DailyMenuUpdateDto;
 import com.example.pdp_meal.entity.DailyMenu;
 import com.example.pdp_meal.mapper.DailyMenuMapper;
-import com.example.pdp_meal.mapper.MealMapper;
 import com.example.pdp_meal.repository.DailyMenuRepository;
 import com.example.pdp_meal.service.AbstractService;
 import com.example.pdp_meal.service.GenericCrudService;
 import com.example.pdp_meal.validator.dailyMenu.DailyMenuValidator;
-import com.example.pdp_meal.validator.meal.MealValidator;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +16,7 @@ import java.util.List;
 
 @Service
 public class DailyMenuService extends AbstractService<DailyMenuRepository, DailyMenuMapper, DailyMenuValidator>
-            implements GenericCrudService<DailyMenu, DailyMenuDto, DailyMenuCreateDto, DailyMenuUpdateDto, Integer> {
+        implements GenericCrudService<DailyMenu, DailyMenuDto, DailyMenuCreateDto, DailyMenuUpdateDto, Integer> {
 
     protected DailyMenuService(DailyMenuRepository repository, DailyMenuMapper mapper,
                                DailyMenuValidator validator) {

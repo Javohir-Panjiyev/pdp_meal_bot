@@ -23,7 +23,8 @@ public class FedBackService extends AbstractService<FeedBackRepository, FeedBack
 
     protected FedBackService(FeedBackRepository repository,
                              FeedBackMapper mapper,
-                             FeedBackValidator validator, FeedBackType feedBackType) {
+                             FeedBackValidator validator,
+                             FeedBackType feedBackType) {
         super(repository, mapper, validator);
         this.feedBackType = feedBackType;
     }
@@ -31,26 +32,31 @@ public class FedBackService extends AbstractService<FeedBackRepository, FeedBack
 
     @Override
     public Integer create(FeedBackCreateDto createDto) {
-        return null;
+        FeedBack feedBack = mapper.fromCreateDto(createDto);
+        repository.save(feedBack);
+        return feedBack.getId();
     }
 
     @Override
     public Void delete(Integer id) {
+        repository.deleteById(id);
         return null;
     }
 
     @Override
     public Void update(FeedBackUpdateDto updateDto) {
+        FeedBack feedBack = mapper.fromUpdateDto(updateDto);
+        repository.save(feedBack);
         return null;
     }
 
     @Override
     public List<FeedBackDto> getAll() {
-        return null;
+        return mapper.toDto(repository.findAll());
     }
 
     @Override
     public FeedBackDto get(Integer id) {
-        return null;
+        return mapper.toDto(repository.findById(id).get());
     }
 }
