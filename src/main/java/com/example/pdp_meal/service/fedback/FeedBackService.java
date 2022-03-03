@@ -16,15 +16,15 @@ import java.util.List;
 /**
  * @author Panjiyev Javohir, чт 14:47. 03.03.2022
  */
-public class FedBackService extends AbstractService<FeedBackRepository, FeedBackMapper, FeedBackValidator>
+public class FeedBackService extends AbstractService<FeedBackRepository, FeedBackMapper, FeedBackValidator>
         implements GenericCrudService<FeedBack, FeedBackDto, FeedBackCreateDto, FeedBackUpdateDto, Integer> {
 
     private final FeedBackType feedBackType;
 
-    protected FedBackService(FeedBackRepository repository,
-                             FeedBackMapper mapper,
-                             FeedBackValidator validator,
-                             FeedBackType feedBackType) {
+    protected FeedBackService(FeedBackRepository repository,
+                              FeedBackMapper mapper,
+                              FeedBackValidator validator,
+                              FeedBackType feedBackType) {
         super(repository, mapper, validator);
         this.feedBackType = feedBackType;
     }
