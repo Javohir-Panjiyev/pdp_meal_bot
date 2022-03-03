@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class MessageSender {
 
-    @Scheduled(cron = " */3 * 18-19 * * *")
-    public void sender() {
-        System.out.println("Hello ");
-    }
+//    @Scheduled(cron = " */3 * 18-19 * * *")
+//    public void sender() {
+//        System.out.println("Hello ");
+//    }
 }

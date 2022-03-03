@@ -1,5 +1,6 @@
 package com.example.pdp_meal.telegram.telegramService;
 
+import com.example.pdp_meal.dto.auth.AuthUserCreateDto;
 import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.telegram.BotProcess;
 import com.example.pdp_meal.telegram.buttons.MarkupBoards;
@@ -14,6 +15,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ForceReplyKeyboa
 import java.util.Objects;
 
 import static com.example.pdp_meal.telegram.BotProcess.UserState;
+import static com.example.pdp_meal.telegram.BotProcess.userHashMap;
 
 @Service
 @RequiredArgsConstructor
@@ -22,27 +24,35 @@ public class RegisterService {
     private final BotProcess BOT;
 
 
-    public void register(Message message, String state) {
+    public void register(Message message) {
         String chatID = message.getChatId().toString();
+        String state = UserState.get(chatID);
 
-        if (State.UNAUTHORIZED.getName().equals(state) || Objects.isNull(state)) {
+
+        if ( Objects.isNull(state)) {
             SendMessage sendMessage = new SendMessage(chatID, "Enter your full name please");
             sendMessage.setReplyMarkup(new ForceReplyKeyboard());
             BOT.executeMessage(sendMessage);
-            //set qilinadi
+            AuthUserCreateDto userCreateDto = userHashMap.get(chatID);
+            userCreateDto.setFullName("56789");
+            userHashMap.put(chatID,userCreateDto);
             UserState.put(chatID, State.USER_NAME.getName());
 
         } else if (State.USER_NAME.getName().equals(state)) {
             SendMessage sendMessage = new SendMessage(chatID, "Enter your username please");
             sendMessage.setReplyMarkup(new ForceReplyKeyboard());
             BOT.executeMessage(sendMessage);
-            //set qilinadi
+            AuthUserCreateDto userCreateDto = userHashMap.get(chatID);
+            userCreateDto.setUsername(message.getText());
+            userHashMap.put(chatID,userCreateDto);
             UserState.put(chatID, State.PASSWORD.getName());
         } else if (State.PASSWORD.getName().equals(state)) {
             SendMessage sendMessage = new SendMessage(chatID, "Enter your password please");
             sendMessage.setReplyMarkup(new ForceReplyKeyboard());
             BOT.executeMessage(sendMessage);
-            ///set qilinadi
+            AuthUserCreateDto userCreateDto = userHashMap.get(chatID);
+            userCreateDto.setPassword(message.getText());
+            userHashMap.put(chatID,userCreateDto);
             UserState.put(chatID, State.PHONE_NUMBER.getName());
         } else if (State.PHONE_NUMBER.getName().equals(state)) {
             DeleteMessage deleteMessage = new DeleteMessage(chatID, message.getMessageId());
@@ -50,19 +60,7 @@ public class RegisterService {
             SendMessage phoneMessage = new SendMessage(chatID, Emojis.PHONE + "Your password has been accepted \nShare phone number please");
             phoneMessage.setReplyMarkup(MarkupBoards.sharePhoneNumber());
             BOT.executeMessage(phoneMessage);
-            //set qilinadi
             UserState.put(chatID, State.REGISTERED.getName());
-        } else if (State.REGISTERED.getName().equals(state)) {
-            String chatId = message.getChatId().toString();
-            if (message.hasContact()) {
-                SendMessage message1 = new SendMessage(chatID, "Successfully authorized");
-                message1.setReplyMarkup(MarkupBoards.done());
-                BOT.executeMessage(message1);
-
-            } else {
-                SendMessage sendMessage1 = new SendMessage(chatId, "Invalid Number format\nPlease send correct number");
-                BOT.executeMessage(sendMessage1);
-            }
         }
     }
 

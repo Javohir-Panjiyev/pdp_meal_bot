@@ -1,22 +1,26 @@
 package com.example.pdp_meal.telegram.handlers;
 
 
+import com.example.pdp_meal.dto.auth.AuthUserCreateDto;
 import com.example.pdp_meal.dto.auth.AuthUserDto;
 import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.repository.AuthUserRepository;
 import com.example.pdp_meal.service.auth.AuthUserService;
 import com.example.pdp_meal.telegram.BotProcess;
+import com.example.pdp_meal.telegram.buttons.MarkupBoards;
 import com.example.pdp_meal.telegram.emojis.Emojis;
 import com.example.pdp_meal.telegram.telegramService.ProcessService;
 import com.example.pdp_meal.telegram.telegramService.RegisterService;
 import com.example.pdp_meal.telegram.telegramService.TelegramService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.Objects;
 
 import static com.example.pdp_meal.telegram.BotProcess.UserState;
+import static com.example.pdp_meal.telegram.BotProcess.userHashMap;
 
 @Component
 @RequiredArgsConstructor
@@ -36,23 +40,38 @@ public class MessageHandler {
         String chatId = message.getChatId().toString();
         AuthUserDto user = userService.getByChatId(chatId);
 
-        if (Objects.isNull(UserState.get(chatId))) {
-            UserState.put(chatId, null);
+        if ( Objects.isNull(message.getText()) || message.hasContact()) {
+            SendMessage message1 = new SendMessage(chatId, "Successfully authorized");
+            message1.setReplyMarkup(MarkupBoards.done());
+            BOT.executeMessage(message1);
+            AuthUserCreateDto userCreateDto1 = userHashMap.get(chatId);
+            userCreateDto1.setChatId(chatId);
+            userHashMap.put(chatId, userCreateDto1);
+
+            AuthUserCreateDto userCreateDto = userHashMap.get(chatId);
+            userCreateDto.setPhoneNumber(message.getContact()+"");
+            userHashMap.put(chatId, userCreateDto);
+
+            AuthUserCreateDto userDto = userHashMap.get(chatId);
+//            userService.create(userDto);
+            UserState.put(chatId, State.START.getName());
         }
 
-        if ((message.getText().equals("/start") && Objects.isNull(user)) ||
-                !UserState.get(chatId).equals(State.REGISTERED.getName())) {
-            registerService.register(message, UserState.get(chatId));
+        if (message.getText().equals("/start") || (Objects.isNull(user) &&
+                !UserState.get(chatId).equals(State.REGISTERED.getName()))) {
+            registerService.register(message);
         }
 
-        if ((message.getText().equals("/start") ||
-                message.getText().equals(Emojis.OK + "Done")) && UserState.get(chatId).equals(State.REGISTERED.getName())) {
+
+        if ((message.getText().equals("/start") && !Objects.isNull(user))
+                || UserState.get(chatId).equals(State.START.getName())) {
             processService.start(message);
-        } else if (message.getText().equals("/help") && message.getText().equals(Emojis.HELP + "Help")) {
+            UserState.put(chatId, State.DONE.getName());
+        } else if (message.getText().equals("/help") || message.getText().equals(Emojis.HELP + "Help")) {
             service.help(chatId);
-        } else if (message.getText().equals("/support") && message.getText().equals(Emojis.SUPPORT + "Support")) {
+        } else if (message.getText().equals("/support") || message.getText().equals(Emojis.SUPPORT + "Support")) {
             service.support(chatId);
-        } else if (message.getText().equals("/feedback") && message.getText().equals(Emojis.FEEDBACK + "Feedback")) {
+        } else if (message.getText().equals("/feedback") || message.getText().equals(Emojis.FEEDBACK + "Feedback")) {
             service.feedback(chatId);
         } else if (message.getText().equals(Emojis.GO_BACK + "Back")) {
             service.mainMenu(chatId);

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface AuthUserRepository extends JpaRepository<AuthUser, Integer> {
 
-   AuthUser findAuthUserByChatId(String chatId);
+
 
 
     AuthUser findByUsername(String username);

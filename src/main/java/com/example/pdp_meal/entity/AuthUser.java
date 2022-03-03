@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthUser implements BaseEntity{
+public class AuthUser implements BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,6 +29,7 @@ public class AuthUser implements BaseEntity{
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false, unique = true)
     private String chatId;
     private String role;
     private String department;

@@ -12,7 +12,9 @@ public enum State {
     REGISTERED("REGISTERED"),
     ORDERING("ORDERING"),
     ORDERED("ORDERED"),
-    PREPARING("PREPARING");
+    PREPARING("PREPARING"),
+    START("START"),
+    DONE("DONE");
 
     private final String name;
 
