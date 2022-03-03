@@ -25,6 +25,10 @@ public class Emojis {
     public static final String CANCEL = "\u274C";
     public static final String NEXT= "\u27A1\uFE0F";
     public static final String PREV= "\u2B05\uFE0F";
+    public static final String PROFILE= "ℹ️";
+    public static final String SUPPORT= "\uD83E\uDD16";
+    public static final String OFFER= "\uD83D\uDCDD";
+    public static final String DISAPPROVAL= "\uD83D\uDCDD";
 
 
 
