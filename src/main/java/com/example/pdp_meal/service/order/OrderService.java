@@ -5,14 +5,19 @@ import com.example.pdp_meal.dto.order.OrderCreateDto;
 import com.example.pdp_meal.dto.order.OrderDto;
 import com.example.pdp_meal.dto.order.OrderUpdateDto;
 import com.example.pdp_meal.entity.MealOrder;
+import com.example.pdp_meal.exception.NotFoundException;
 import com.example.pdp_meal.mapper.order.OrderMapper;
 import com.example.pdp_meal.repository.OrderRepository;
 import com.example.pdp_meal.service.AbstractService;
 import com.example.pdp_meal.service.GenericCrudService;
 import com.example.pdp_meal.validator.order.OrderValidator;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 /**
  * @author Bakhodirov Azizbek, Wed 11:15 PM. 3/2/2022
  */
@@ -58,6 +63,8 @@ implements GenericCrudService<MealOrder, OrderDto, OrderCreateDto, OrderUpdateDt
 
     @Override
     public OrderDto get(Integer id) {
-        return mapper.toDto(repository.findById(id).get());
+        Optional<MealOrder> optional = repository.findById( id );
+        return optional.map( mapper::toDto ).orElseThrow(()-> new NotFoundException("order not found" ));
+
     }
 }
