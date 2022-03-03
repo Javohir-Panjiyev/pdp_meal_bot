@@ -1,18 +1,17 @@
 package com.example.pdp_meal.telegram.handlers;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
-
 @Component
+@RequiredArgsConstructor
 public class UpdateHandler {
 
     private final MessageHandler messageHandler;
-    private final CallbackHandler callbackHandler = CallbackHandler.getInstance();
+    private final CallbackHandler callbackHandler;
 
-    public UpdateHandler(MessageHandler messageHandle) {
-        this.messageHandler = messageHandle;
-    }
+
 
     public void handle(Update update) {
         if (update.hasMessage()) {

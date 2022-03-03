@@ -1,12 +1,14 @@
 package com.example.pdp_meal.telegram.buttons;
 
 import com.example.pdp_meal.telegram.emojis.Emojis;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.List;
 
+@Component
 public class MarkupBoards {
 
     private static final ReplyKeyboardMarkup board = new ReplyKeyboardMarkup();

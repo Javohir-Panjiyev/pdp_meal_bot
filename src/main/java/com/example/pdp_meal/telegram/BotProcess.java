@@ -1,6 +1,7 @@
 package com.example.pdp_meal.telegram;
 
 import com.example.pdp_meal.telegram.handlers.UpdateHandler;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -11,12 +12,16 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import javax.ws.rs.ext.ParamConverter;
+
+
 @Component
-public class Pdp_meal extends TelegramLongPollingBot {
+//@RequiredArgsConstructor
+public class BotProcess  extends TelegramLongPollingBot {
 
     private final UpdateHandler updateHandler ;
 
-    public Pdp_meal(UpdateHandler updateHandler) {
+    public BotProcess(@Lazy UpdateHandler updateHandler) {
         this.updateHandler = updateHandler;
     }
 
@@ -75,4 +80,7 @@ public class Pdp_meal extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
+
+
+
 }

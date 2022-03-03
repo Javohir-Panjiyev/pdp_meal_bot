@@ -1,43 +1,50 @@
 package com.example.pdp_meal.telegram.telegramService;
 
-import com.example.pdp_meal.telegram.Pdp_meal;
+
+
+import com.example.pdp_meal.telegram.BotProcess;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 @Service
+@RequiredArgsConstructor
 public class TelegramService {
 
-    public Pdp_meal bot;
+    private final BotProcess bot;
 
-    public void register(Long chatId) {
+    public void register(String chatId) {
+        SendMessage message =new SendMessage(chatId,"ishladi");
+        bot.executeMessage(message);
 
-    }
-
-    public void getPhone(Long chatId) {
-
-    }
-
-    public void getFullName(Long chatId) {
 
     }
 
-    public void getPassword(Long chatId) {
+    public void getPhone(String chatId) {
 
     }
 
-    public void ordering(Long chatId) {
+    public void getFullName(String chatId) {
 
     }
 
-    public void ordered(Long chatId) {
-    }
-
-    public void preparing(Long chatId) {
+    public void getPassword(String chatId) {
 
     }
 
-    public void sendWrong(Long chatId) {
-        SendMessage msg = new SendMessage(chatId.toString(), "Wrong option");
+    public void ordering(String chatId) {
+
+    }
+
+    public void ordered(String chatId) {
+    }
+
+    public void preparing(String chatId) {
+
+    }
+
+    public void sendWrong(String chatId) {
+        SendMessage msg = new SendMessage(chatId, "Wrong option");
         bot.executeMessage(msg);
     }
 }
