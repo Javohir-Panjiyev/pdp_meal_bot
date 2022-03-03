@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/order")
+@RequestMapping("/api/daily")
 public class DailyMenuController extends AbstractController<DailyMenuService> {
 
     public DailyMenuController(DailyMenuService service) {

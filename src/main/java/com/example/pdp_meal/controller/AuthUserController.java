@@ -18,7 +18,7 @@ public class AuthUserController {
 
     @RequestMapping("create")
     public ResponseEntity<Integer> create(@RequestBody AuthUserCreateDto dto) {
-        return null;
+       return ResponseEntity.ok().body( service.create(dto));
     }
 
 

@@ -43,6 +43,7 @@ public class OrderController extends AbstractController<OrderService> {
     }
 
 
+    @PreAuthorize("hasAuthority('super_admin')")
     @PostMapping("/add")
     public ResponseEntity<Integer> addOrder(@RequestBody OrderCreateDto createDto){
         Integer id = service.create( createDto );
