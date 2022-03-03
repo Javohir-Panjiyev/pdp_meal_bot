@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
@@ -25,7 +26,7 @@ public class MealUpdateDto extends GenericDto {
     private String ingredient;
 
     @NotBlank
-    private String pathPhoto;
+    private MultipartFile pathPhoto;
 
     @NotBlank
     private String fileId;

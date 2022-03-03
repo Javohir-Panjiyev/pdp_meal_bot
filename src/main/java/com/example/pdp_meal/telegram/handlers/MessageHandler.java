@@ -1,30 +1,44 @@
 package com.example.pdp_meal.telegram.handlers;
 
 
-import com.example.pdp_meal.telegram.pdp_meal;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import com.example.pdp_meal.entity.AuthUser;
+import com.example.pdp_meal.repository.AuthRepository;
+import com.example.pdp_meal.telegram.telegramService.TelegramService;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+import java.util.Optional;
+
+@Component
 public class MessageHandler {
 
-    private static final pdp_meal BOT = pdp_meal.getInstance();
-    private static MessageHandler instance=new MessageHandler();
+    private final AuthRepository authRepository;
+    private final TelegramService service;
 
-    public static MessageHandler getInstance() {
-        return instance;
+    public MessageHandler(AuthRepository authRepository, TelegramService service) {
+        this.authRepository = authRepository;
+        this.service = service;
     }
 
-    public void handle(Message message){
-        String chatId = message.getChatId().toString();
-
-        if (message.getText().equals("/start")){
-            SendMessage sendMessage=new SendMessage(chatId,"salom");
-            BOT.executeMessage(sendMessage);
+    public void handle(Message message) {
+        Long chatId = message.getChatId();
+        if (message.getText().equals("/start")) {
+            Optional<AuthUser> optionalAuthUser = authRepository.findAuthUserByChatId(chatId.toString());
+            if (optionalAuthUser.isEmpty()) {
+                service.register(chatId);
+            }
+            AuthUser user = optionalAuthUser.get();
+            switch (user.getState()){
+                case "UNAUTHORIZED" -> service.register(chatId);
+                case "PHONE" -> service.getPhone(chatId);
+                case "FULLNAME" -> service.getFullName(chatId);
+                case "PASSWORD" -> service.getPassword(chatId);
+                case "ORDERING" -> service.ordering(chatId);
+                case "ORDERED" -> service.ordered(chatId);
+                case "PREPARING" -> service.preparing(chatId);
+//                case "REGISTERED" -> service.getPassword(chatId);
+                default -> service.sendWrong(chatId);
+            }
         }
-
-
     }
 }
