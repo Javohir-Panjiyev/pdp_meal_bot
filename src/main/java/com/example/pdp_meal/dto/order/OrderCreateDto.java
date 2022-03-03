@@ -18,5 +18,4 @@ public class OrderCreateDto implements BaseDto {
 
     private Integer mealId;
 
-    private Timestamp date;
 }
