@@ -34,31 +34,27 @@ public class MessageHandler {
 
     public void handle(Message message) {
         String chatId = message.getChatId().toString();
-       AuthUserDto user = userService.getByChatId(chatId);
+        AuthUserDto user = userService.getByChatId(chatId);
+
+        if (Objects.isNull(UserState.get(chatId))) {
+            UserState.put(chatId, null);
+        }
 
         if ((message.getText().equals("/start") && Objects.isNull(user)) ||
-                !UserState.get(chatId).equals(State.REGISTERED.getName()))  {
+                !UserState.get(chatId).equals(State.REGISTERED.getName())) {
             registerService.register(message, UserState.get(chatId));
         }
 
-        if (message.getText().equals("/start") ||
-                message.getText().equals(Emojis.OK + "Done") ) {
-              processService.start(message);
-        }
-
-        else if (message.getText().equals("/help") && message.getText().equals(Emojis.HELP + "Help")) {
+        if ((message.getText().equals("/start") ||
+                message.getText().equals(Emojis.OK + "Done")) && UserState.get(chatId).equals(State.REGISTERED.getName())) {
+            processService.start(message);
+        } else if (message.getText().equals("/help") && message.getText().equals(Emojis.HELP + "Help")) {
             service.help(chatId);
-        }
-
-        else if (message.getText().equals("/support") && message.getText().equals(Emojis.SUPPORT + "Support")) {
+        } else if (message.getText().equals("/support") && message.getText().equals(Emojis.SUPPORT + "Support")) {
             service.support(chatId);
-        }
-
-        else if (message.getText().equals("/feedback") && message.getText().equals(Emojis.FEEDBACK + "Feedback")) {
+        } else if (message.getText().equals("/feedback") && message.getText().equals(Emojis.FEEDBACK + "Feedback")) {
             service.feedback(chatId);
-        }
-
-        else if (message.getText().equals(Emojis.GO_BACK + "Back")) {
+        } else if (message.getText().equals(Emojis.GO_BACK + "Back")) {
             service.mainMenu(chatId);
         }
 
