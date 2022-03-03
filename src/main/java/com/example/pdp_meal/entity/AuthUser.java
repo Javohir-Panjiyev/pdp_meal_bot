@@ -1,10 +1,7 @@
 package com.example.pdp_meal.entity;
 
 
-import com.example.pdp_meal.enums.Status;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,8 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AuthUser implements BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -10,6 +10,7 @@ import com.example.pdp_meal.service.order.OrderService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class OrderController extends AbstractController<OrderService> {
 
     }
 
+
     @GetMapping("/{id}")
     public HttpEntity<?> getOrder(@PathVariable Integer id) {
         try {
@@ -39,7 +41,9 @@ public class OrderController extends AbstractController<OrderService> {
             return ResponseEntity.status( HttpStatus.NOT_FOUND ).body( e.getMessage() );
         }
     }
-    @PostMapping
+
+
+    @PostMapping("/add")
     public ResponseEntity<Integer> addOrder(@RequestBody OrderCreateDto createDto){
         Integer id = service.create( createDto );
         return new ResponseEntity<>( id,HttpStatus.OK );

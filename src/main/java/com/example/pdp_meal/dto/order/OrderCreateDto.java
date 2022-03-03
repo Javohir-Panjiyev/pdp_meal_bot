@@ -13,9 +13,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderCreateDto implements BaseDto {
-
     private Integer userId;
-
     private Integer mealId;
 
 }

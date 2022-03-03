@@ -52,31 +52,25 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     }
 
 
-    @PostConstruct
-    public void init() {
-        List<AuthUser> authUserList = Collections.emptyList();
-        authUserList = repository.findAll();
-        if (authUserList.isEmpty()) {
-            AuthUser authUser = AuthUser.builder()
-                    .username("admin")
-                    .fullName("Najmiddin")
-                    .password(passwordEncoder.encode("123"))
-                    .active(true)
-                    .chatId("x")
-                    .department("admin")
-                    .phone("1111111")
-                    .position("super_admin")
-                    .role("super_admin")
-                    .active(true)
-                    .build();
-            repository.save(authUser);
-        }
-    }
-
-
-
-
-
+//    @PostConstruct
+//    public void init() {
+//        List<AuthUser> authUserList = Collections.emptyList();
+//        authUserList = repository.findAll();
+//        if (authUserList.isEmpty()) {
+//            AuthUser authUser = AuthUser.builder()
+//                    .username("admin")
+//                    .fullName("Najmiddin")
+//                    .password(passwordEncoder.encode("123"))
+//                    .chatId("x")
+//                    .department("admin")
+//                    .phone("1111111")
+//                    .position("super_admin")
+//                    .role("super_admin")
+//                    .active(true)
+//                    .build();
+//            repository.save(authUser);
+//        }
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -91,7 +85,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/**",
          "/swagger-ui.html",
          "/v2/api-docs",
-         "/webjars/**","/api/login/**", "/api/token/refresh/**")
+         "/webjars/**", "/api/login/**", "/api/token/refresh/**")
                 .permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
