@@ -1,7 +1,7 @@
-package com.example.pdp_meal.config.filters;
+package com.example.pdp_meal.config.security.filters;
 
 import com.auth0.jwt.JWT;
-import com.example.pdp_meal.config.security.JWTUtils;
+import com.example.pdp_meal.config.security.utils.JwtUtils;
 import com.example.pdp_meal.dto.auth.LoginDto;
 import com.example.pdp_meal.exception.BadRequestException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,16 +55,16 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
         String accessToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(JWTUtils.getExpiry())
+                .withExpiresAt(JwtUtils.getExpiry())
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .sign(JWTUtils.getAlgorithm());
+                .sign(JwtUtils.getAlgorithm());
 
         String refreshToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(JWTUtils.getExpiryForRefreshToken())
+                .withExpiresAt(JwtUtils.getExpiryForRefreshToken())
                 .withIssuer(request.getRequestURL().toString())
-                .sign(JWTUtils.getAlgorithm());
+                .sign(JwtUtils.getAlgorithm());
 
         Map<String, String> tokens = new HashMap<>();
 

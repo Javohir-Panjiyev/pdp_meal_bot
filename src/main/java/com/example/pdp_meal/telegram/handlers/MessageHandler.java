@@ -3,8 +3,7 @@ package com.example.pdp_meal.telegram.handlers;
 
 import com.example.pdp_meal.entity.AuthUser;
 import com.example.pdp_meal.enums.State;
-import com.example.pdp_meal.enums.Status;
-import com.example.pdp_meal.repository.AuthRepository;
+import com.example.pdp_meal.repository.AuthUserRepository;
 import com.example.pdp_meal.telegram.telegramService.TelegramService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -19,17 +18,17 @@ import static com.example.pdp_meal.telegram.BotProcess.UserState;
 @RequiredArgsConstructor
 public class MessageHandler {
 
-    private final AuthRepository authRepository;
+    private final AuthUserRepository authRepository;
     private final TelegramService service;
 
 
     public void handle(Message message) {
         String chatId = message.getChatId().toString();
         Optional<AuthUser> optionalAuthUser = authRepository.findAuthUserByChatId(chatId);
-        if (optionalAuthUser.isEmpty() ||
-                !Objects.equals(optionalAuthUser.get().getState(), State.REGISTERED)) {
-            service.register(message, UserState.get(chatId));
-        }
+//        if (optionalAuthUser.isEmpty() ||
+//                !Objects.equals(optionalAuthUser.get().getState(), State.REGISTERED)) {
+//            service.register(message, UserState.get(chatId));
+//        }
         if (message.getText().equals("/start")) {
             AuthUser user = optionalAuthUser.get();
 //            switch (user.getState()){

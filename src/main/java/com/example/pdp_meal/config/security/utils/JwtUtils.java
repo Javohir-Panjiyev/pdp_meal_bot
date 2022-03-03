@@ -1,14 +1,18 @@
-package com.example.pdp_meal.config.security;
-
+package com.example.pdp_meal.config.security.utils;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.JWTVerifier;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class JWTUtils {
+/**
+ * @author johnl
+ * @since 2/24/2022
+ */
+
+public class JwtUtils {
 
     public static Integer expiry = 1_800_000;
     public static String secret = "ASDQW#@!$#@%$#DSFSDFRT%$#%34543terg45%^%$";

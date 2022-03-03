@@ -2,6 +2,7 @@ package com.example.pdp_meal.entity;
 
 
 import com.example.pdp_meal.enums.Status;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class AuthUser {
+@Builder
+public class AuthUser implements BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -28,10 +30,8 @@ public class AuthUser {
     private String password;
 
     private String chatId;
-    private Status status;
     private String role;
     private String department;
     private String position;
     private boolean active;
-    private Status state;
 }

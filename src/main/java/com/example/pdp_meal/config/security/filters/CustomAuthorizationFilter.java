@@ -1,7 +1,7 @@
-package com.example.pdp_meal.config.filters;
+package com.example.pdp_meal.config.security.filters;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.pdp_meal.config.security.JWTUtils;
+import com.example.pdp_meal.config.security.utils.JwtUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
+
 @Slf4j
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
@@ -33,7 +34,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
                 try {
                     String token = authorizationHeader.substring("Bearer ".length());
-                    DecodedJWT decodedJWT = JWTUtils.getVerifier().verify(token);
+                    DecodedJWT decodedJWT = JwtUtils.getVerifier().verify(token);
                     String username = decodedJWT.getSubject();
                     String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
                     Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
