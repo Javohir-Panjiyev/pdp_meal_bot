@@ -5,12 +5,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.Instant;
 
 
 @Getter
 @Setter
 @Entity
-public class MealOrder {
+public class MealOrder implements BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,6 +21,6 @@ public class MealOrder {
 
     private Integer mealId;
 
-    private Timestamp date;
+    private Instant createDate = Instant.now();
 
 }
