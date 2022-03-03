@@ -9,9 +9,6 @@ import java.util.Optional;
 
 public interface AuthRepository extends JpaRepository<AuthUser, Integer> {
 
-
-
     Optional<AuthUser> findAuthUserByChatId(String chatId);
-
 
 }

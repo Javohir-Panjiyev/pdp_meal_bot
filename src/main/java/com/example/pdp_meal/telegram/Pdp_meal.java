@@ -11,13 +11,12 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class pdp_meal extends TelegramLongPollingBot {
+@Component
+public class Pdp_meal extends TelegramLongPollingBot {
 
+    private final UpdateHandler updateHandler ;
 
-    private final   UpdateHandler updateHandler ;
-
-
-    public pdp_meal(UpdateHandler updateHandler) {
+    public Pdp_meal(UpdateHandler updateHandler) {
         this.updateHandler = updateHandler;
     }
 
@@ -76,9 +75,4 @@ public class pdp_meal extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
-
-    public static pdp_meal getInstance() {
-        return instance;
-    }
-
 }

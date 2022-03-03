@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
 
     }
     @ExceptionHandler(NoHandlerFoundException.class)
-    public String rror404(NoHandlerFoundException e, Model model, WebRequest request) {
+    public String error404(NoHandlerFoundException e, Model model, WebRequest request) {
 //        String path = ((ServletWebRequest) (request)).getRequest().getRequestURI();
 //        model.addAttribute("time", new Date());
 //        model.addAttribute("message", e.getMessage());

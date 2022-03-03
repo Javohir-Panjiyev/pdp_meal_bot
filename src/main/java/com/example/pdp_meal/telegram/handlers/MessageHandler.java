@@ -3,42 +3,43 @@ package com.example.pdp_meal.telegram.handlers;
 
 import com.example.pdp_meal.entity.AuthUser;
 import com.example.pdp_meal.repository.AuthRepository;
-import com.example.pdp_meal.telegram.buttons.MarkupBoards;
-import com.example.pdp_meal.telegram.pdp_meal;
-
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import com.example.pdp_meal.telegram.telegramService.TelegramService;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
-
 
 import java.util.Optional;
 
+@Component
 public class MessageHandler {
 
-    private static final pdp_meal BOT = pdp_meal.getInstance();
+    private final AuthRepository authRepository;
+    private final TelegramService service;
 
-      private  final AuthRepository authRepository;
-
-    public MessageHandler(AuthRepository authRepository) {
+    public MessageHandler(AuthRepository authRepository, TelegramService service) {
         this.authRepository = authRepository;
+        this.service = service;
     }
 
-
-
-
-    public void handle(Message message){
-        String chatId = message.getChatId().toString();
-
-        if (message.getText().equals("/start")){
-            Optional<AuthUser> user = authRepository.findAuthUserByChatId(chatId);
-            if (user.isEmpty()){
-                MarkupBoards.sharePhoneNumber(chatId);
+    public void handle(Message message) {
+        Long chatId = message.getChatId();
+        if (message.getText().equals("/start")) {
+            Optional<AuthUser> optionalAuthUser = authRepository.findAuthUserByChatId(chatId.toString());
+            if (optionalAuthUser.isEmpty()) {
+                service.register(chatId);
             }
-            else {
-                SendMessage sendMessage=new SendMessage(chatId,"Welcome to our bot !");
-                BOT.executeMessage(sendMessage);
+            AuthUser user = optionalAuthUser.get();
+            switch (user.getState()){
+                case "UNAUTHORIZED" -> service.register(chatId);
+                case "PHONE" -> service.getPhone(chatId);
+                case "FULLNAME" -> service.getFullName(chatId);
+                case "PASSWORD" -> service.getPassword(chatId);
+                case "ORDERING" -> service.ordering(chatId);
+                case "ORDERED" -> service.ordered(chatId);
+                case "PREPARING" -> service.prepering(chatId);
+//                case "REGISTERED" -> service.getPassword(chatId);
+                default -> service.sendWrong(chatId);
             }
         }
-
-
     }
 }
