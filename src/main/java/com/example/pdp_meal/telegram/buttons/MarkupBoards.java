@@ -26,4 +26,41 @@ public class MarkupBoards {
 
     }
 
+    public static ReplyKeyboardMarkup mainMenu() {
+        //row1
+        KeyboardRow row1 = new KeyboardRow();
+        row1.add(new KeyboardButton(Emojis.FEEDBACK+"Feedback"));
+        //row2
+        KeyboardRow row2 = new KeyboardRow();
+        row2.add(new KeyboardButton(Emojis.ABOUT_US+"About us"));
+        row2.add(new KeyboardButton(Emojis.PROFILE+"Profile"));
+
+        //row2
+        KeyboardRow row3 = new KeyboardRow();
+        row3.add(new KeyboardButton(Emojis.HELP+"Help"));
+        row3.add(new KeyboardButton(Emojis.SUPPORT+"Support"));
+
+        //row3
+
+        board.setKeyboard(List.of(row1, row2, row3));
+        board.setResizeKeyboard(true);
+        board.setSelective(true);
+        return board;
+    }
+
+    public static ReplyKeyboardMarkup feedBackMenu(){
+        //row1
+        KeyboardRow row1 = new KeyboardRow();
+        row1.add(new KeyboardButton(Emojis.OFFER+"Offer"));
+        row1.add(new KeyboardButton(Emojis.DISAPPROVAL+"Disapproval"));
+        //row2
+        KeyboardRow row2 = new KeyboardRow();
+        row2.add(new KeyboardButton(Emojis.GO_BACK+"Back"));
+
+        board.setKeyboard(List.of(row1, row2));
+        board.setResizeKeyboard(true);
+        board.setSelective(true);
+        return board;
+    }
+
 }
