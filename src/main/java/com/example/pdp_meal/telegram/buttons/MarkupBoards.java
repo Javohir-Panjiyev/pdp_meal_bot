@@ -14,7 +14,7 @@ public class MarkupBoards {
     private static final ReplyKeyboardMarkup board = new ReplyKeyboardMarkup();
 
 
-    public static ReplyKeyboardMarkup sharePhoneNumber(String chatId) {
+    public static ReplyKeyboardMarkup sharePhoneNumber() {
         KeyboardButton phoneContact = new KeyboardButton(Emojis.PHONE + "Share phone number please ");
         phoneContact.setRequestContact(true);
         board.setResizeKeyboard(true);
