@@ -1,6 +1,8 @@
 package com.example.pdp_meal.telegram;
 
+import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.telegram.handlers.UpdateHandler;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -11,12 +13,17 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.HashMap;
+import java.util.Map;
+
+
 @Component
-public class Pdp_meal extends TelegramLongPollingBot {
+public class BotProcess  extends TelegramLongPollingBot {
 
     private final UpdateHandler updateHandler ;
+    public static final Map<String, State> UserState=new HashMap<>();
 
-    public Pdp_meal(UpdateHandler updateHandler) {
+    public BotProcess(@Lazy UpdateHandler updateHandler) {
         this.updateHandler = updateHandler;
     }
 
@@ -75,4 +82,7 @@ public class Pdp_meal extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
+
+
+
 }

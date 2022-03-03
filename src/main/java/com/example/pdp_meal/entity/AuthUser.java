@@ -33,5 +33,5 @@ public class AuthUser {
     private String department;
     private String position;
     private boolean active;
-    private String state;
+    private Status state;
 }

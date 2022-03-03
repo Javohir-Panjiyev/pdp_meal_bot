@@ -10,11 +10,13 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity
-public class DailyMenu {
+public class DailyMenu implements BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer mealId;
+
+
     private Instant date;
 
 }
