@@ -2,15 +2,12 @@ package com.example.pdp_meal.telegram.telegramService;
 
 import com.example.pdp_meal.telegram.Pdp_meal;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 @Service
 public class TelegramService {
 
-    private final Pdp_meal bot;
-
-    public TelegramService(Pdp_meal bot) {
-        this.bot = bot;
-    }
+    public Pdp_meal bot;
 
     public void register(Long chatId) {
 
@@ -35,11 +32,12 @@ public class TelegramService {
     public void ordered(Long chatId) {
     }
 
-    public void prepering(Long chatId) {
+    public void preparing(Long chatId) {
 
     }
 
     public void sendWrong(Long chatId) {
-
+        SendMessage msg = new SendMessage(chatId.toString(), "Wrong option");
+        bot.executeMessage(msg);
     }
 }

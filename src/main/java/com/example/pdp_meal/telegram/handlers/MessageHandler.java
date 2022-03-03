@@ -4,7 +4,6 @@ package com.example.pdp_meal.telegram.handlers;
 import com.example.pdp_meal.entity.AuthUser;
 import com.example.pdp_meal.repository.AuthRepository;
 import com.example.pdp_meal.telegram.telegramService.TelegramService;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -36,7 +35,7 @@ public class MessageHandler {
                 case "PASSWORD" -> service.getPassword(chatId);
                 case "ORDERING" -> service.ordering(chatId);
                 case "ORDERED" -> service.ordered(chatId);
-                case "PREPARING" -> service.prepering(chatId);
+                case "PREPARING" -> service.preparing(chatId);
 //                case "REGISTERED" -> service.getPassword(chatId);
                 default -> service.sendWrong(chatId);
             }
