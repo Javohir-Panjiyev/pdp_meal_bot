@@ -21,7 +21,7 @@ import java.util.Map;
 public class BotProcess  extends TelegramLongPollingBot {
 
     private final UpdateHandler updateHandler ;
-    public static final Map<String, State> UserState=new HashMap<>();
+    public static final Map<String, String> UserState=new HashMap<>();
 
     public BotProcess(@Lazy UpdateHandler updateHandler) {
         this.updateHandler = updateHandler;

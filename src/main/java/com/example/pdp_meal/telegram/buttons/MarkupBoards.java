@@ -62,5 +62,14 @@ public class MarkupBoards {
         board.setSelective(true);
         return board;
     }
+    public static ReplyKeyboardMarkup done(){
+        //row1
+        KeyboardRow row1 = new KeyboardRow();
+        row1.add(new KeyboardButton(Emojis.OK+"Done"));
+        board.setKeyboard(List.of(row1));
+        board.setResizeKeyboard(true);
+        board.setSelective(true);
+        return board;
+    }
 
 }

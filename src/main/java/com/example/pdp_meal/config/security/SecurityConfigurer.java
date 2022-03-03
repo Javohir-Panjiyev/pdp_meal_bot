@@ -4,6 +4,7 @@ import com.example.pdp_meal.config.security.filters.CustomAuthenticationFilter;
 import com.example.pdp_meal.config.security.filters.CustomAuthorizationFilter;
 import com.example.pdp_meal.dto.auth.AuthUserCreateDto;
 import com.example.pdp_meal.entity.AuthUser;
+import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.enums.Status;
 import com.example.pdp_meal.mapper.auth.AuthUserMapper;
 import com.example.pdp_meal.repository.AuthUserRepository;
@@ -67,6 +68,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 //                    .position("super_admin")
 //                    .role("super_admin")
 //                    .active(true)
+//                    .state(State.REGISTERED)
 //                    .build();
 //            repository.save(authUser);
 //        }

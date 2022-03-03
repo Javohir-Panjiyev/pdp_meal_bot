@@ -1,6 +1,7 @@
 package com.example.pdp_meal.entity;
 
 
+import com.example.pdp_meal.enums.State;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,5 +33,6 @@ public class AuthUser implements BaseEntity{
     private String role;
     private String department;
     private String position;
+    private String state;
     private boolean active;
 }

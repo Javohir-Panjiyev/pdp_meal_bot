@@ -64,6 +64,11 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         return mapper.toDto(authUser);
     }
 
+    public AuthUserDto getByChatId(String id) throws RuntimeException {
+        AuthUser authUser = repository.findByChatId(id);
+        return mapper.toDto(authUser);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AuthUser user = repository.findByUsername(username);
