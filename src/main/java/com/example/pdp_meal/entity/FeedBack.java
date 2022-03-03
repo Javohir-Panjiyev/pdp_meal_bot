@@ -1,6 +1,8 @@
 package com.example.pdp_meal.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,7 +10,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class FeedBack {
+@NoArgsConstructor
+@AllArgsConstructor
+public class FeedBack implements BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

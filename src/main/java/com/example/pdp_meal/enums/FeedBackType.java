@@ -1,6 +1,6 @@
 package com.example.pdp_meal.enums;
 
-public enum FedBackType {
+public enum FeedBackType {
     POSITIVE,
     NEGATIVE
 }
