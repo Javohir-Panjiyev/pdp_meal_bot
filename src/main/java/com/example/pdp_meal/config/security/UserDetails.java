@@ -1,14 +1,16 @@
 package com.example.pdp_meal.config.security;
 
-import com.example.pdp_meal.enums.Role;
+import com.example.pdp_meal.entity.AuthUser;
 import com.example.pdp_meal.enums.Status;
-import com.example.pdp_meal.model.AuthUser;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 
 @Getter
