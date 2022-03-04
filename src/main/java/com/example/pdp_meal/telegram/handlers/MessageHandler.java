@@ -1,7 +1,6 @@
 package com.example.pdp_meal.telegram.handlers;
 
 
-import com.example.pdp_meal.dto.auth.AuthUserCreateDto;
 import com.example.pdp_meal.dto.auth.AuthUserDto;
 import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.repository.AuthUserRepository;
@@ -40,17 +39,22 @@ public class MessageHandler {
         String chatId = message.getChatId().toString();
 
         AuthUserDto user = userService.getByChatId(chatId);
+        if (Objects.nonNull(user)){
+            UserState.put(chatId,State.START.getName());
+        }
 //        AuthUserCreateDto userCreateDto1 = userHashMap.get(chatId);
 //        userCreateDto1.setChatId(chatId);
 //        userHashMap.put(chatId, userCreateDto1);
 
 
 //
-        if (message.hasContact()  || (message.getText().equals("/start") && Objects.isNull(user)) ||
+        if (message.hasContact() || (message.getText().equals("/start") && Objects.isNull(user)) ||
                 !UserState.get(chatId).equals(State.START.getName())) {
             registerService.register(message);
-        } else if ( UserState.get(chatId).equals(State.START.getName())) {
-            processService.start(message);
+        } else if (message.getText().equals("/start") && Objects.nonNull(user)) {
+            SendMessage message1 = new SendMessage(chatId, "Menu");
+            message1.setReplyMarkup(MarkupBoards.mainMenu());
+            BOT.executeMessage(message1);
         } else if (message.getText().equals("/help") || message.getText().equals(Emojis.HELP + "Help")) {
             service.help(chatId);
         } else if (message.getText().equals("/support") || message.getText().equals(Emojis.SUPPORT + "Support")) {
