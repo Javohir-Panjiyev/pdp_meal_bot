@@ -3,19 +3,18 @@ package com.example.pdp_meal.telegram.telegramService;
 import com.example.pdp_meal.dto.auth.AuthUserCreateDto;
 import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.telegram.BotProcess;
+import com.example.pdp_meal.telegram.buttons.InlineBoards;
 import com.example.pdp_meal.telegram.buttons.MarkupBoards;
-import com.example.pdp_meal.telegram.emojis.Emojis;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
+import org.telegram.telegrambots.meta.api.objects.Contact;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ForceReplyKeyboard;
 
 import java.util.Objects;
 
-import static com.example.pdp_meal.telegram.BotProcess.UserState;
-import static com.example.pdp_meal.telegram.BotProcess.userHashMap;
 
 @Service
 @RequiredArgsConstructor
@@ -26,35 +25,46 @@ public class RegisterService {
 
     public void register(Message message) {
         String chatID = message.getChatId().toString();
-        String state = UserState.get(chatID);
-
+        String state = BOT.userState.get(chatID);
+        if (Objects.isNull(BOT.userHashMap.get(chatID))) {
+            BOT.userHashMap.put(chatID, new AuthUserCreateDto());
+        }
 
         if (Objects.isNull(state)) {
             SendMessage sendMessage = new SendMessage(chatID, "Enter your full name please");
             sendMessage.setReplyMarkup(new ForceReplyKeyboard());
             BOT.executeMessage(sendMessage);
-//            AuthUserCreateDto userCreateDto = userHashMap.get(chatID);
-//            userCreateDto.setFullName("56789");
-//            userHashMap.put(chatID,userCreateDto);
-            UserState.put(chatID, State.USER_NAME.getName());
+            BOT.userState.put(chatID, State.USER_NAME.getName());
 
         } else if (State.USER_NAME.getName().equals(state)) {
+            String fullName = message.getText();
+
+            AuthUserCreateDto userCreateDto = BOT.userHashMap.get(chatID);
+            userCreateDto.setFullName(fullName);
+            BOT.userHashMap.put(chatID, userCreateDto);
+
             SendMessage sendMessage = new SendMessage(chatID, "Enter your username please");
             sendMessage.setReplyMarkup(new ForceReplyKeyboard());
             BOT.executeMessage(sendMessage);
-//            AuthUserCreateDto userCreateDto = userHashMap.get(chatID);
-//            userCreateDto.setUsername(message.getText());
-//            userHashMap.put(chatID,userCreateDto);
-            UserState.put(chatID, State.PASSWORD.getName());
+            BOT.userState.put(chatID, State.PASSWORD.getName());
         } else if (State.PASSWORD.getName().equals(state)) {
+            String username = message.getText();
+
+            AuthUserCreateDto userCreateDto = BOT.userHashMap.get(chatID);
+            userCreateDto.setUsername(username);
+            BOT.userHashMap.put(chatID, userCreateDto);
+
             SendMessage sendMessage = new SendMessage(chatID, "Enter your password please");
             sendMessage.setReplyMarkup(new ForceReplyKeyboard());
             BOT.executeMessage(sendMessage);
-//            AuthUserCreateDto userCreateDto = userHashMap.get(chatID);
-//            userCreateDto.setPassword(message.getText());
-//            userHashMap.put(chatID,userCreateDto);
-            UserState.put(chatID, State.PHONE_NUMBER.getName());
+            BOT.userState.put(chatID, State.PHONE_NUMBER.getName());
         } else if (State.PHONE_NUMBER.getName().equals(state)) {
+            String password = message.getText();
+            AuthUserCreateDto userCreateDto = BOT.userHashMap.get(chatID);
+            userCreateDto.setPassword(password);
+            BOT.userHashMap.put(chatID, userCreateDto);
+            SendMessage delete = new SendMessage(chatID, "Your password has been accepted");
+            BOT.executeMessage(delete);
             DeleteMessage deleteMessage = new DeleteMessage(chatID, message.getMessageId());
             BOT.executeMessage(deleteMessage);
             SendMessage phoneMessage = new SendMessage();
@@ -62,23 +72,22 @@ public class RegisterService {
             phoneMessage.setText("Share your phone Number");
             phoneMessage.setChatId(chatID);
             BOT.executeMessage(phoneMessage);
-            UserState.put(chatID, State.REGISTERED.getName());
-        } else if (UserState.get(chatID).equals(State.REGISTERED.getName())) {
+            BOT.userState.put(chatID, State.DEPARTMENT.getName());
+        } else if (BOT.userState.get(chatID).equals(State.DEPARTMENT.getName())) {
             if (message.hasContact()) {
-                SendMessage message1 = new SendMessage();
-                message1.setChatId(chatID);
-                message1.setText("Successfully registered");
-                message1.setReplyMarkup(MarkupBoards.mainMenu());
+                Contact contact = message.getContact();
+                AuthUserCreateDto userCreateDto = BOT.userHashMap.get(chatID);
+                userCreateDto.setPhone(contact.getPhoneNumber());
+                userCreateDto.setChatId(chatID);
+                BOT.userHashMap.put(chatID, userCreateDto);
+
+                SendMessage message1 = new SendMessage(chatID, "Choose your department");
+                message1.setReplyMarkup(InlineBoards.department());
                 BOT.executeMessage(message1);
-
-//            AuthUserCreateDto userCreateDto = userHashMap.get(chatId);
-//            userCreateDto.setPhoneNumber(message.getContact()+"");
-//            userHashMap.put(chatId, userCreateDto);
-
-//            AuthUserCreateDto userDto = userHashMap.get(chatId);
-//            userService.create(userDto);
-                UserState.put(chatID, State.START.getName());
+                BOT.userState.put(chatID, State.POSITION.getName());
             }
+        } else if (BOT.userState.get(chatID).equals(State.POSITION.getName())) {
+            BOT.userState.put(chatID, State.REGISTERED.getName());
         }
     }
 }

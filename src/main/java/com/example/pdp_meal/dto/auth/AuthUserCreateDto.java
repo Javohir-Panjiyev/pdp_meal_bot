@@ -16,9 +16,10 @@ public class AuthUserCreateDto implements BaseDto {
     private String username;
     private String password;
     private String chatId;
-    private String phoneNumber;
+    private String phone;
     private String role;
     private String department;
     private String position;
+    private String state;
     private boolean active;
 }

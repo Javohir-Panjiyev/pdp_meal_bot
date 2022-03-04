@@ -1,5 +1,6 @@
 package com.example.pdp_meal.enums;
 
+import ch.qos.logback.classic.Logger;
 import lombok.Getter;
 
 @Getter
@@ -14,7 +15,10 @@ public enum State {
     ORDERED("ORDERED"),
     PREPARING("PREPARING"),
     START("START"),
+    DEPARTMENT("DEPARTMENT"),
+    POSITION("POSITION"),
     DONE("DONE");
+
 
     private final String name;
 

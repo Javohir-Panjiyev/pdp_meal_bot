@@ -4,7 +4,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/pdp_meal
     username: postgres
-    password: umidmaster98
+    password: 1807
   jpa:
     show-sql: true
     hibernate:
@@ -16,4 +16,4 @@ spring:
     image:
       location: classpath:banner.txt
 server:
-  port: 9090
+  port: 8009
