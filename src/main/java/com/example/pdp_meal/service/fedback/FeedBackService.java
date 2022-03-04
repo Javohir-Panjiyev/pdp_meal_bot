@@ -32,6 +32,7 @@ public class FeedBackService extends AbstractService<FeedBackRepository, FeedBac
 
     @Override
     public Integer create(FeedBackCreateDto createDto) {
+        validator.validOnCreate(createDto);
         FeedBack feedBack = mapper.fromCreateDto(createDto);
         repository.save(feedBack);
         return feedBack.getId();
@@ -45,6 +46,7 @@ public class FeedBackService extends AbstractService<FeedBackRepository, FeedBac
 
     @Override
     public Void update(FeedBackUpdateDto updateDto) {
+        validator.validOnUpdate(updateDto);
         FeedBack feedBack = mapper.fromUpdateDto(updateDto);
         repository.save(feedBack);
         return null;
@@ -57,6 +59,6 @@ public class FeedBackService extends AbstractService<FeedBackRepository, FeedBac
 
     @Override
     public FeedBackDto get(Integer id) {
-        return mapper.toDto(repository.findById(id).get());
+        return mapper.toDto(repository.getById(id));
     }
 }
