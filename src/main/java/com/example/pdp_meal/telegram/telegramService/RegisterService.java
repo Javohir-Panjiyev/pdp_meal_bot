@@ -6,6 +6,7 @@ import com.example.pdp_meal.telegram.BotProcess;
 import com.example.pdp_meal.telegram.buttons.InlineBoards;
 import com.example.pdp_meal.telegram.buttons.MarkupBoards;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
@@ -21,6 +22,7 @@ import java.util.Objects;
 public class RegisterService {
 
     private final BotProcess BOT;
+    private final PasswordEncoder encoder;
 
 
     public void register(Message message) {
@@ -61,7 +63,7 @@ public class RegisterService {
         } else if (State.PHONE_NUMBER.getName().equals(state)) {
             String password = message.getText();
             AuthUserCreateDto userCreateDto = BOT.userHashMap.get(chatID);
-            userCreateDto.setPassword(password);
+            userCreateDto.setPassword(encoder.encode(password));
             BOT.userHashMap.put(chatID, userCreateDto);
             SendMessage delete = new SendMessage(chatID, "Your password has been accepted");
             BOT.executeMessage(delete);
