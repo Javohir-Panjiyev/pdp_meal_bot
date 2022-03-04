@@ -95,12 +95,12 @@ public class TelegramService {
         AuthUser user = userRepository.findByChatId(chatId);
         SendMessage profileMessage = new SendMessage();
         profileMessage.setChatId(chatId);
-        profileMessage.setText(" Profile Data \uD83D\uDC47" +
-                "Full name      : " + user.getFullName() +
-                "User name      : " + user.getUsername() +
-                "Phone          : " + user.getPhone() +
-                "Department     : " + user.getDepartment() +
-                "Department     : " + user.getDepartment()
+        profileMessage.setText("\nProfile Data \uD83D\uDC47" +
+                "\nFull name      : " + user.getFullName() +
+                "\nUser name      : " + user.getUsername() +
+                "\nPhone          : " + user.getPhone() +
+                "\nDepartment     : " + user.getDepartment() +
+                "\nPosition       : " + user.getPosition()
         );
         BOT.executeMessage(profileMessage);
     }
