@@ -64,7 +64,7 @@ public class MessageHandler {
             service.profile(chatId);
         } else if (message.getText().equals(Emojis.GO_BACK + "Back")) {
             service.changeStatus(chatId, State.REGISTERED.getName());
-            service.mainMenu(chatId);
+            service.mainMenu(chatId, user.getRole());
         } else if (message.getText().equals(Emojis.OFFER + "Offer") ||
                 message.getText().equals(Emojis.DISAPPROVAL + "Disapproval")) {
             service.changeStatus(chatId, State.OFFER.getName());
@@ -76,13 +76,13 @@ public class MessageHandler {
             service.changeStatus(chatId, State.REGISTERED.getName());
             SendMessage sendMessage = new SendMessage(chatId, "Thank you for your feedback " + Emojis.SMILE);
             BOT.executeMessage(sendMessage);
-            service.mainMenu(chatId);
+            service.mainMenu(chatId, user.getRole());
         } else if (user.getState().equals(State.DISAPPROVAL.getName())) {
             feedBackService.create(new FeedBackCreateDto(message.getText(), user.getId(), FeedBackType.NEGATIVE.name()));
             service.changeStatus(chatId, State.REGISTERED.getName());
             SendMessage sendMessage = new SendMessage(chatId, "Thank you for your feedback " + Emojis.SMILE);
             BOT.executeMessage(sendMessage);
-            service.mainMenu(chatId);
+            service.mainMenu(chatId, user.getRole());
         }
 
     }
