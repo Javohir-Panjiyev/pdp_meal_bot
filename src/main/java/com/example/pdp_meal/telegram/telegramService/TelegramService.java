@@ -115,9 +115,9 @@ public class TelegramService {
         BOT.executeMessage(message1);
     }
 
-    public void mainMenu(String chatId) {
+    public void mainMenu(String chatId, String role) {
         SendMessage message1 = new SendMessage(chatId, Emojis.right +"Main menu" + Emojis.left);
-        message1.setReplyMarkup(MarkupBoards.mainMenu());
+        message1.setReplyMarkup(MarkupBoards.mainMenu(role));
         BOT.executeMessage(message1);
     }
 
