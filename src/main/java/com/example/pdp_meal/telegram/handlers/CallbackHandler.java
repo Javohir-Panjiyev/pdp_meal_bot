@@ -9,6 +9,7 @@ import com.example.pdp_meal.telegram.BotProcess;
 import com.example.pdp_meal.telegram.buttons.InlineBoards;
 import com.example.pdp_meal.telegram.buttons.MarkupBoards;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
