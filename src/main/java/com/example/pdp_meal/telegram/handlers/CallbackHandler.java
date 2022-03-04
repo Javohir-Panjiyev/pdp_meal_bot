@@ -2,6 +2,7 @@ package com.example.pdp_meal.telegram.handlers;
 
 
 import com.example.pdp_meal.dto.auth.AuthUserCreateDto;
+import com.example.pdp_meal.dto.auth.AuthUserDto;
 import com.example.pdp_meal.enums.Role;
 import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.service.auth.AuthUserService;
@@ -27,6 +28,8 @@ public class CallbackHandler {
         Message message = callbackQuery.getMessage();
         String data = callbackQuery.getData();
         String chatID = message.getChatId().toString();
+        AuthUserDto user = userService.getByChatId(chatID);
+
         switch (data) {
             case "academic", "marketing", "economic" -> {
                 DeleteMessage deleteMessage = new DeleteMessage(chatID, message.getMessageId());
@@ -54,7 +57,7 @@ public class CallbackHandler {
                 userService.create(userCreateDto);
                 BOT.userState.put(chatID, State.REGISTERED.getName());
                 SendMessage message1 = new SendMessage(chatID, "Successfully registered");
-                message1.setReplyMarkup(MarkupBoards.mainMenu());
+                message1.setReplyMarkup(MarkupBoards.mainMenu(userCreateDto.getRole()));
                 BOT.executeMessage(message1);
             }
 

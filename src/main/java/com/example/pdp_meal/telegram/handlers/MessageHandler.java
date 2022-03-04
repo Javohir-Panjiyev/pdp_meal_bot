@@ -41,6 +41,7 @@ public class MessageHandler {
         String chatId = message.getChatId().toString();
 
         AuthUserDto user = userService.getByChatId(chatId);
+
         if (Objects.nonNull(user)) {
             BOT.userState.put(chatId, State.START.getName());
         }
@@ -50,7 +51,8 @@ public class MessageHandler {
             registerService.register(message);
         } else if (message.getText().equals("/start") && Objects.nonNull(user)) {
             SendMessage message1 = new SendMessage(chatId, "Menu");
-            message1.setReplyMarkup(MarkupBoards.mainMenu());
+
+            message1.setReplyMarkup(MarkupBoards.mainMenu(user.getRole()));
             BOT.executeMessage(message1);
         } else if (message.getText().equals("/help") || message.getText().equals(Emojis.HELP + "Help")) {
             service.help(chatId);

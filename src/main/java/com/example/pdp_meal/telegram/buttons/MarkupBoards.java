@@ -1,5 +1,6 @@
 package com.example.pdp_meal.telegram.buttons;
 
+import com.example.pdp_meal.enums.Role;
 import com.example.pdp_meal.telegram.emojis.Emojis;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
@@ -26,23 +27,34 @@ public class MarkupBoards {
         return board;
     }
 
-    public static ReplyKeyboardMarkup mainMenu() {
+    public static ReplyKeyboardMarkup mainMenu(String role) {
+        if (role.equals(Role.ADMIN.name())){
+            KeyboardRow row = new KeyboardRow();
+            row.add(new KeyboardButton(Emojis.FEEDBACK + "Feedbacks"));
+            row.add(new KeyboardButton(Emojis.ORDERS + "Orders"));
+            KeyboardRow row1 = new KeyboardRow();
+            row1.add(new KeyboardButton(Emojis.PROFILE + "Profile"));
+            row1.add(new KeyboardButton(Emojis.ABOUT_US + "About us"));
+
+            board.setKeyboard(List.of(row, row1));
+        }
         //row1
-        KeyboardRow row1 = new KeyboardRow();
-        row1.add(new KeyboardButton(Emojis.FEEDBACK+"Feedback"));
-        //row2
-        KeyboardRow row2 = new KeyboardRow();
-        row2.add(new KeyboardButton(Emojis.ABOUT_US+"About us"));
-        row2.add(new KeyboardButton(Emojis.PROFILE+"Profile"));
+       if (role.equals(Role.USER.name())) {
+            KeyboardRow row1 = new KeyboardRow();
+            row1.add(new KeyboardButton(Emojis.FEEDBACK + "Feedback"));
+            //row2
+            KeyboardRow row2 = new KeyboardRow();
+            row2.add(new KeyboardButton(Emojis.ABOUT_US + "About us"));
+            row2.add(new KeyboardButton(Emojis.PROFILE + "Profile"));
 
-        //row2
-        KeyboardRow row3 = new KeyboardRow();
-        row3.add(new KeyboardButton(Emojis.HELP+"Help"));
-        row3.add(new KeyboardButton(Emojis.SUPPORT+"Support"));
-
+            //row2
+            KeyboardRow row3 = new KeyboardRow();
+            row3.add(new KeyboardButton(Emojis.HELP + "Help"));
+            row3.add(new KeyboardButton(Emojis.SUPPORT + "Support"));
+           board.setKeyboard(List.of(row1, row2, row3));
+       }
         //row3
 
-        board.setKeyboard(List.of(row1, row2, row3));
         board.setResizeKeyboard(true);
         board.setSelective(true);
         return board;
