@@ -17,11 +17,11 @@ public class MarkupBoards {
     public static ReplyKeyboardMarkup sharePhoneNumber() {
         KeyboardButton phoneContact = new KeyboardButton(Emojis.PHONE + "Share phone number please ");
         phoneContact.setRequestContact(true);
-        board.setResizeKeyboard(true);
-        board.setSelective(true);
         KeyboardRow row = new KeyboardRow();
         row.add(phoneContact);
         board.setKeyboard(List.of(row));
+        board.setResizeKeyboard(true);
+        board.setSelective(true);
         return board;
 
     }

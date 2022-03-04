@@ -27,6 +27,7 @@ public class BotProcess extends TelegramLongPollingBot {
     public static final Map<String, AuthUserCreateDto> userHashMap = new HashMap<>();
 
 
+
     public BotProcess(@Lazy UpdateHandler updateHandler) {
         this.updateHandler = updateHandler;
     }
