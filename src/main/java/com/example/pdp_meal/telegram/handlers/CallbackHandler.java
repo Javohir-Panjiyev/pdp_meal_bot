@@ -8,8 +8,8 @@ import com.example.pdp_meal.service.auth.AuthUserService;
 import com.example.pdp_meal.telegram.BotProcess;
 import com.example.pdp_meal.telegram.buttons.InlineBoards;
 import com.example.pdp_meal.telegram.buttons.MarkupBoards;
+import com.example.pdp_meal.telegram.telegramService.TelegramService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
@@ -21,6 +21,8 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 public class CallbackHandler {
     private final BotProcess BOT;
     private final AuthUserService userService;
+    private final TelegramService telegramService;
+
 
 
     public void handle(CallbackQuery callbackQuery) {
@@ -57,6 +59,11 @@ public class CallbackHandler {
                 message1.setReplyMarkup(MarkupBoards.mainMenu());
                 BOT.executeMessage(message1);
             }
+
+            case "1", "2", "3", "4", "5" -> {
+                telegramService.orderMeal(chatID, data);
+            }
+
 
 
         }

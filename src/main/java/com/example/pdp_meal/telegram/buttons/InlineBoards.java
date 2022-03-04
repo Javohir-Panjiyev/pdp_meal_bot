@@ -1,10 +1,12 @@
 package com.example.pdp_meal.telegram.buttons;
 
+import com.example.pdp_meal.dto.dailyMenu.DailyMenuDto;
 import com.example.pdp_meal.telegram.emojis.Emojis;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,6 +47,20 @@ public class InlineBoards {
         headDepartment.setCallbackData("headDepartment");
 
         board.setKeyboard(Arrays.asList(getRow(teacher), getRow(administrator), getRow(employee), getRow(headDepartment)));
+        return board;
+    }
+
+    public static ReplyKeyboard menu(){
+        InlineKeyboardMarkup board = new InlineKeyboardMarkup();
+        List<InlineKeyboardButton> buttons = new ArrayList<>();
+        List<List<InlineKeyboardButton>> allButtons =  new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            InlineKeyboardButton button = new InlineKeyboardButton( (i++) + "");
+            button.setCallbackData((i++) + "");
+            buttons.add(button);
+        }
+        allButtons.add(buttons);
+        board.setKeyboard(allButtons);
         return board;
     }
 }
