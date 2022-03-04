@@ -61,6 +61,8 @@ public class MessageHandler {
             service.support(chatId);
         } else if (message.getText().equals("/feedback") || message.getText().equals(Emojis.FEEDBACK + "Feedback")) {
             service.feedback(chatId);
+        }else if (message.getText().equals("/profile") || message.getText().equals(Emojis.PROFILE + "Profile")) {
+            service.profile(chatId);
         } else if (message.getText().equals(Emojis.GO_BACK + "Back")) {
             service.mainMenu(chatId);
         }

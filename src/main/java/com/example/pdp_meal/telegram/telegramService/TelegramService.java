@@ -1,6 +1,8 @@
 package com.example.pdp_meal.telegram.telegramService;
 
 
+import com.example.pdp_meal.entity.AuthUser;
+import com.example.pdp_meal.repository.AuthUserRepository;
 import com.example.pdp_meal.service.dailyMenu.DailyMenuService;
 import com.example.pdp_meal.telegram.BotProcess;
 import com.example.pdp_meal.telegram.buttons.MarkupBoards;
@@ -9,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
+import javax.persistence.Column;
+
 import static java.lang.Thread.sleep;
 
 @Service
@@ -16,6 +20,7 @@ import static java.lang.Thread.sleep;
 public class TelegramService {
 
     private final BotProcess BOT;
+    private final AuthUserRepository userRepository;
     private final DailyMenuService dailyMenuService;
 
 
@@ -84,5 +89,19 @@ public class TelegramService {
         SendMessage message1 = new SendMessage(chatId, Emojis.right +"Main menu" + Emojis.left);
         message1.setReplyMarkup(MarkupBoards.mainMenu());
         BOT.executeMessage(message1);
+    }
+
+    public void profile(String chatId) {
+        AuthUser user = userRepository.findByChatId(chatId);
+        SendMessage profileMessage = new SendMessage();
+        profileMessage.setChatId(chatId);
+        profileMessage.setText(" Profile Data \uD83D\uDC47" +
+                "Full name      : " + user.getFullName() +
+                "User name      : " + user.getUsername() +
+                "Phone          : " + user.getPhone() +
+                "Department     : " + user.getDepartment() +
+                "Department     : " + user.getDepartment()
+        );
+        BOT.executeMessage(profileMessage);
     }
 }

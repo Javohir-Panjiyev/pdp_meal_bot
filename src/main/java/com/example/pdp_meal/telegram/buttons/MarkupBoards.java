@@ -23,7 +23,6 @@ public class MarkupBoards {
         board.setResizeKeyboard(true);
         board.setSelective(true);
         return board;
-
     }
 
     public static ReplyKeyboardMarkup mainMenu() {

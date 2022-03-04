@@ -46,7 +46,6 @@ public class BotProcess extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         updateHandler.handle(update);
-
     }
 
     public void executeMessage(BotApiMethod<?> msg) {
