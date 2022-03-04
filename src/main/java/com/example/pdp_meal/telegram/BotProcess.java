@@ -13,8 +13,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,8 +21,8 @@ import java.util.Map;
 public class BotProcess extends TelegramLongPollingBot {
 
     private final UpdateHandler updateHandler;
-    public static final Map<String, String> UserState = new HashMap<>();
-    public static final Map<String, AuthUserCreateDto> userHashMap = new HashMap<>();
+    public  final Map<String, String> userState = new HashMap<>();
+    public  final Map<String, AuthUserCreateDto> userHashMap = new HashMap<>();
 
 
     public BotProcess(@Lazy UpdateHandler updateHandler) {

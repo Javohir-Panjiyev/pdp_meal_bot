@@ -1,7 +1,9 @@
 package com.example.pdp_meal.telegram.handlers;
 
 
+import com.example.pdp_meal.dto.auth.AuthUserCreateDto;
 import com.example.pdp_meal.dto.auth.AuthUserDto;
+import com.example.pdp_meal.enums.Role;
 import com.example.pdp_meal.dto.feedback.FeedBackCreateDto;
 import com.example.pdp_meal.enums.FeedBackType;
 import com.example.pdp_meal.enums.State;
@@ -9,6 +11,7 @@ import com.example.pdp_meal.repository.AuthUserRepository;
 import com.example.pdp_meal.service.auth.AuthUserService;
 import com.example.pdp_meal.service.fedback.FeedBackService;
 import com.example.pdp_meal.telegram.BotProcess;
+import com.example.pdp_meal.telegram.buttons.InlineBoards;
 import com.example.pdp_meal.telegram.buttons.MarkupBoards;
 import com.example.pdp_meal.telegram.emojis.Emojis;
 import com.example.pdp_meal.telegram.telegramService.ProcessService;
@@ -21,8 +24,6 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.Objects;
 
-import static com.example.pdp_meal.telegram.BotProcess.UserState;
-import static com.example.pdp_meal.telegram.BotProcess.userHashMap;
 
 @Component
 @RequiredArgsConstructor
@@ -44,16 +45,13 @@ public class MessageHandler {
 
         AuthUserDto user = userService.getByChatId(chatId);
         if (Objects.nonNull(user)) {
+            BOT.userState.put(chatId, State.START.getName());
+        if (Objects.nonNull(user)) {
             UserState.put(chatId, State.START.getName());
         }
-//        AuthUserCreateDto userCreateDto1 = userHashMap.get(chatId);
-//        userCreateDto1.setChatId(chatId);
-//        userHashMap.put(chatId, userCreateDto1);
 
-
-//
         if (message.hasContact() || (message.getText().equals("/start") && Objects.isNull(user)) ||
-                !UserState.get(chatId).equals(State.START.getName())) {
+                !BOT.userState.get(chatId).equals(State.START.getName())) {
             registerService.register(message);
         } else if (message.getText().equals("/start") && Objects.nonNull(user)) {
             SendMessage message1 = new SendMessage(chatId, "Menu");
@@ -76,5 +74,11 @@ public class MessageHandler {
 //            AuthUserDto user2 = userService.getByChatId(chatId);
             feedBackService.create(new FeedBackCreateDto(message.getText(), user.getId(), FeedBackType.NEGATIVE.name()));
         }
+
+    }
+
+
+
+
     }
 }

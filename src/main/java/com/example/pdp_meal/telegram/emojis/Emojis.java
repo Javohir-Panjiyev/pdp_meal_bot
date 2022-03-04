@@ -29,6 +29,9 @@ public class Emojis {
     public static final String SUPPORT= "\uD83E\uDD16";
     public static final String OFFER= "\uD83D\uDCDD";
     public static final String DISAPPROVAL= "\uD83D\uDCDD";
+    public static final String ACADEMIC= "";
+    public static final String MARKETING= "";
+    public static final String ECONOMIC= "";
 
 
 

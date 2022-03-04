@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-import static com.example.pdp_meal.telegram.BotProcess.UserState;
+
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +22,7 @@ public class ProcessService {
         SendMessage message1 = new SendMessage(chatId, " Menu");
         message1.setReplyMarkup(MarkupBoards.mainMenu());
         BOT.executeMessage(message1);
-        UserState.put(chatId, State.DONE.getName());
+        BOT.userState.put(chatId, State.DONE.getName());
 
     }
 }
