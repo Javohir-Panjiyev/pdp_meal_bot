@@ -71,9 +71,11 @@ public class TelegramService {
 
     private String getMenuString(List<DailyMenuDto> all) {
         StringBuilder menus = new StringBuilder();
+        menus.append("Today's menu.\n" +
+                "Please select the appropriate number of meals ");
         for (int i = 0; i < 5; i++) {
             MealDto mealDto = mealService.get(all.get(i).getMealId());
-            menus.append(i + 1).append(". ").append(mealDto.getName());
+            menus.append(i + 1).append(". ").append(mealDto.getName()).append("\n");
         }
         return menus.toString();
     }
