@@ -46,6 +46,7 @@ public class MessageHandler {
             BOT.userState.put(chatId, State.START.getName());
         }
 
+
         if (message.hasContact() || (message.getText().equals("/start") && Objects.isNull(user)) ||
                 !BOT.userState.get(chatId).equals(State.START.getName())) {
             registerService.register(message);
