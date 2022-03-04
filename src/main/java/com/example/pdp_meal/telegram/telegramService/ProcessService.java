@@ -1,12 +1,15 @@
 package com.example.pdp_meal.telegram.telegramService;
 
 
+import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.telegram.BotProcess;
 import com.example.pdp_meal.telegram.buttons.MarkupBoards;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
+
+import static com.example.pdp_meal.telegram.BotProcess.UserState;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +22,7 @@ public class ProcessService {
         SendMessage message1 = new SendMessage(chatId, " Menu");
         message1.setReplyMarkup(MarkupBoards.mainMenu());
         BOT.executeMessage(message1);
-
+        UserState.put(chatId, State.DONE.getName());
 
     }
 }

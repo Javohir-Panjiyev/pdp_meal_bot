@@ -38,35 +38,19 @@ public class MessageHandler {
 
     public void handle(Message message) {
         String chatId = message.getChatId().toString();
+
         AuthUserDto user = userService.getByChatId(chatId);
+//        AuthUserCreateDto userCreateDto1 = userHashMap.get(chatId);
+//        userCreateDto1.setChatId(chatId);
+//        userHashMap.put(chatId, userCreateDto1);
 
-        if ( Objects.isNull(message.getText()) || message.hasContact()) {
-            SendMessage message1 = new SendMessage(chatId, "Successfully authorized");
-            message1.setReplyMarkup(MarkupBoards.done());
-            BOT.executeMessage(message1);
-            AuthUserCreateDto userCreateDto1 = userHashMap.get(chatId);
-            userCreateDto1.setChatId(chatId);
-            userHashMap.put(chatId, userCreateDto1);
 
-            AuthUserCreateDto userCreateDto = userHashMap.get(chatId);
-            userCreateDto.setPhoneNumber(message.getContact()+"");
-            userHashMap.put(chatId, userCreateDto);
-
-            AuthUserCreateDto userDto = userHashMap.get(chatId);
-//            userService.create(userDto);
-            UserState.put(chatId, State.START.getName());
-        }
-
-        if (message.getText().equals("/start") || (Objects.isNull(user) &&
-                !UserState.get(chatId).equals(State.REGISTERED.getName()))) {
+//
+        if (message.hasContact()  || (message.getText().equals("/start") && Objects.isNull(user)) ||
+                !UserState.get(chatId).equals(State.START.getName())) {
             registerService.register(message);
-        }
-
-
-        if ((message.getText().equals("/start") && !Objects.isNull(user))
-                || UserState.get(chatId).equals(State.START.getName())) {
+        } else if ( UserState.get(chatId).equals(State.START.getName())) {
             processService.start(message);
-            UserState.put(chatId, State.DONE.getName());
         } else if (message.getText().equals("/help") || message.getText().equals(Emojis.HELP + "Help")) {
             service.help(chatId);
         } else if (message.getText().equals("/support") || message.getText().equals(Emojis.SUPPORT + "Support")) {
@@ -76,6 +60,7 @@ public class MessageHandler {
         } else if (message.getText().equals(Emojis.GO_BACK + "Back")) {
             service.mainMenu(chatId);
         }
+
 
     }
 }
