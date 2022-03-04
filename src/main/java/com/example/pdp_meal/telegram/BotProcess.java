@@ -39,7 +39,7 @@ public class BotProcess extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "5113084360:AAGqyTbF-KyAeo217xpRlMZLzNVXtc4_moQ";
+        return "5057671220:AAFCWSWCgu_8e5xsbZQCgA9pokeHYOdZp8E";
     }
 
     @Override
@@ -63,7 +63,6 @@ public class BotProcess extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
-
     public void executeMessage(SendDocument msg) {
         try {
             execute(msg);
@@ -87,6 +86,7 @@ public class BotProcess extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
+
 
 
 }
