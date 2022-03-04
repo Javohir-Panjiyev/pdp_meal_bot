@@ -33,6 +33,7 @@ public class Emojis {
     public static final String ACADEMIC= "";
     public static final String MARKETING= "";
     public static final String ECONOMIC= "";
+    public static final String MEAL = "\uD83C\uDF56";
     public static final String ORDERS= "\uD83C\uDF5A";
 
 

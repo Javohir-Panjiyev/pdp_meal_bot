@@ -56,6 +56,8 @@ public class MessageHandler {
             BOT.executeMessage(message1);
         } else if (message.getText().equals("/help") || message.getText().equals(Emojis.HELP + "Help")) {
             service.help(chatId);
+        } else if (message.getText().equals(Emojis.MEAL + "Order")) {
+            service.ordering(chatId);
         } else if (message.getText().equals("/support") || message.getText().equals(Emojis.SUPPORT + "Support")) {
             service.support(chatId);
         } else if (message.getText().equals("/feedback") || message.getText().equals(Emojis.FEEDBACK + "Feedback")) {

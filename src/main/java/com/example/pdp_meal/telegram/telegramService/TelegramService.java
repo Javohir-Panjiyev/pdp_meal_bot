@@ -1,17 +1,27 @@
 package com.example.pdp_meal.telegram.telegramService;
 
 
+import com.example.pdp_meal.dto.dailyMenu.DailyMenuCreateDto;
+import com.example.pdp_meal.dto.dailyMenu.DailyMenuDto;
+import com.example.pdp_meal.dto.meal.MealDto;
+import com.example.pdp_meal.dto.order.OrderCreateDto;
 import com.example.pdp_meal.entity.AuthUser;
+import com.example.pdp_meal.entity.MealOrder;
+import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.repository.AuthUserRepository;
 import com.example.pdp_meal.service.dailyMenu.DailyMenuService;
+import com.example.pdp_meal.service.meal.MealService;
+import com.example.pdp_meal.service.order.OrderService;
 import com.example.pdp_meal.telegram.BotProcess;
+import com.example.pdp_meal.telegram.buttons.InlineBoards;
 import com.example.pdp_meal.telegram.buttons.MarkupBoards;
 import com.example.pdp_meal.telegram.emojis.Emojis;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
-import javax.persistence.Column;
+import java.util.List;
 
 import static java.lang.Thread.sleep;
 
@@ -22,6 +32,8 @@ public class TelegramService {
     private final BotProcess BOT;
     private final AuthUserRepository userRepository;
     private final DailyMenuService dailyMenuService;
+    private final MealService mealService;
+    private final OrderService orderService;
 
 
 
@@ -42,10 +54,28 @@ public class TelegramService {
     }
 
     public void ordering(String chatId) {
-
+        AuthUser byChatId = userRepository.findByChatId(chatId);
+        if(byChatId.getState().equals(State.ORDERING.getName())){
+            BOT.executeMessage(getMenu(chatId));
+        }
     }
 
-    public void ordered(String chatId) {
+    private SendMessage getMenu(String chatId) {
+        List<DailyMenuDto> all = dailyMenuService.getAll();
+        ReplyKeyboard menu = InlineBoards.menu();
+        String menuString = getMenuString(all);
+        SendMessage msg = new SendMessage(chatId, menuString);
+        msg.setReplyMarkup(menu);
+        return msg;
+    }
+
+    private String getMenuString(List<DailyMenuDto> all) {
+        StringBuilder menus = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            MealDto mealDto = mealService.get(all.get(i).getMealId());
+            menus.append(i + 1).append(". ").append(mealDto.getName());
+        }
+        return menus.toString();
     }
 
     public void preparing(String chatId) {
@@ -107,5 +137,18 @@ public class TelegramService {
                 "\nPosition       : " + user.getPosition()
         );
         BOT.executeMessage(profileMessage);
+    }
+
+    public void orderMeal(String chatID, String data) {
+        OrderCreateDto order = new OrderCreateDto();
+        order.setMealId(Integer.parseInt(data));
+        order.setUserId(userRepository.findByChatId(chatID).getId());
+        orderService.create(order);
+        sendAcceptedMesssage(chatID);
+    }
+
+    private void sendAcceptedMesssage(String chatID) {
+        SendMessage msg = new SendMessage(chatID, "Your Order is Accepted");
+        BOT.executeMessage(msg);
     }
 }
