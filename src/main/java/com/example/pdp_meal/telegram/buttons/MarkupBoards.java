@@ -2,6 +2,7 @@ package com.example.pdp_meal.telegram.buttons;
 
 import com.example.pdp_meal.telegram.emojis.Emojis;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
@@ -61,10 +62,10 @@ public class MarkupBoards {
         board.setSelective(true);
         return board;
     }
-    public static ReplyKeyboardMarkup done(){
+    public static ReplyKeyboardMarkup back(){
         //row1
         KeyboardRow row1 = new KeyboardRow();
-        row1.add(new KeyboardButton(Emojis.OK+"Done"));
+        row1.add(new KeyboardButton(Emojis.GO_BACK + "Back"));
         board.setKeyboard(List.of(row1));
         board.setResizeKeyboard(true);
         board.setSelective(true);
