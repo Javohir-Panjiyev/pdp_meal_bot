@@ -2,7 +2,7 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/pdp_meal
+    url: jdbc:postgresql://localhost:5432/PDPMealSystem
     username: postgres
     password: Shoxruh0912
   jpa:

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
+
 /**
  * @author Panjiyev Javohir, ср 21:08. 02.03.2022
  */
@@ -15,7 +17,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FeedBackCreateDto implements BaseDto {
 
+
     private String message;
+
+    private Integer userId;
 
     private String type;
 }

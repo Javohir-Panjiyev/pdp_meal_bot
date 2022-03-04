@@ -2,9 +2,12 @@ package com.example.pdp_meal.telegram.handlers;
 
 
 import com.example.pdp_meal.dto.auth.AuthUserDto;
+import com.example.pdp_meal.dto.feedback.FeedBackCreateDto;
+import com.example.pdp_meal.enums.FeedBackType;
 import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.repository.AuthUserRepository;
 import com.example.pdp_meal.service.auth.AuthUserService;
+import com.example.pdp_meal.service.fedback.FeedBackService;
 import com.example.pdp_meal.telegram.BotProcess;
 import com.example.pdp_meal.telegram.buttons.MarkupBoards;
 import com.example.pdp_meal.telegram.emojis.Emojis;
@@ -32,6 +35,7 @@ public class MessageHandler {
     private final RegisterService registerService;
     private final AuthUserService userService;
     private final ProcessService processService;
+    private final FeedBackService feedBackService;
     private final BotProcess BOT;
 
 
@@ -39,8 +43,8 @@ public class MessageHandler {
         String chatId = message.getChatId().toString();
 
         AuthUserDto user = userService.getByChatId(chatId);
-        if (Objects.nonNull(user)){
-            UserState.put(chatId,State.START.getName());
+        if (Objects.nonNull(user)) {
+            UserState.put(chatId, State.START.getName());
         }
 //        AuthUserCreateDto userCreateDto1 = userHashMap.get(chatId);
 //        userCreateDto1.setChatId(chatId);
@@ -61,12 +65,16 @@ public class MessageHandler {
             service.support(chatId);
         } else if (message.getText().equals("/feedback") || message.getText().equals(Emojis.FEEDBACK + "Feedback")) {
             service.feedback(chatId);
-        }else if (message.getText().equals("/profile") || message.getText().equals(Emojis.PROFILE + "Profile")) {
+        } else if (message.getText().equals("/profile") || message.getText().equals(Emojis.PROFILE + "Profile")) {
             service.profile(chatId);
         } else if (message.getText().equals(Emojis.GO_BACK + "Back")) {
             service.mainMenu(chatId);
+        } else if (message.getText().equals(Emojis.OFFER + "Offer")) {
+//            AuthUserDto user2 = userService.getByChatId(chatId);
+            feedBackService.create(new FeedBackCreateDto(message.getText(), user.getId(), FeedBackType.POSITIVE.name()));
+        } else if (message.getText().equals(Emojis.DISAPPROVAL + "Disapproval")) {
+//            AuthUserDto user2 = userService.getByChatId(chatId);
+            feedBackService.create(new FeedBackCreateDto(message.getText(), user.getId(), FeedBackType.NEGATIVE.name()));
         }
-
-
     }
 }

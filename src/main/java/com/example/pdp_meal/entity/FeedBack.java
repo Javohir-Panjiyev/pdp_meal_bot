@@ -20,5 +20,8 @@ public class FeedBack implements BaseEntity {
     @Column(nullable = false)
     private String message;
 
+    @Column(nullable = false)
+    private Integer userId;
+
     private String type;
 }
