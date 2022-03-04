@@ -55,8 +55,8 @@ public class InlineBoards {
         List<InlineKeyboardButton> buttons = new ArrayList<>();
         List<List<InlineKeyboardButton>> allButtons =  new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            InlineKeyboardButton button = new InlineKeyboardButton( (i++) + "");
-            button.setCallbackData((i++) + "");
+            InlineKeyboardButton button = new InlineKeyboardButton( (i+1) + "");
+            button.setCallbackData((i+1) + "");
             buttons.add(button);
         }
         allButtons.add(buttons);
