@@ -41,6 +41,10 @@ public class TelegramService {
 
     }
 
+    public void changeStatus(String chatId,String state){
+        userRepository.changeStatus(chatId,state);
+    }
+
     public void getFullName(String chatId) {
 
     }

@@ -27,8 +27,5 @@ public class MealCreateDto implements BaseDto {
     private String ingredient;
 
     @NotBlank
-    private MultipartFile pathPhoto;
-
-    @NotBlank
     private String fileId;
 }

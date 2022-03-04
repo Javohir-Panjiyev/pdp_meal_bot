@@ -25,7 +25,6 @@ public class BotProcess extends TelegramLongPollingBot {
     public  final Map<String, AuthUserCreateDto> userHashMap = new HashMap<>();
 
 
-
     public BotProcess(@Lazy UpdateHandler updateHandler) {
         this.updateHandler = updateHandler;
     }
@@ -33,12 +32,12 @@ public class BotProcess extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "PDP_MEAL";
+        return "bboottttttttttbot";
     }
 
     @Override
     public String getBotToken() {
-        return "5113084360:AAGqyTbF-KyAeo217xpRlMZLzNVXtc4_moQ";
+        return "5240268613:AAHPgrEsfBCZTR2i7LAfL6fnq5dwmQYpuKE";
     }
 
     @Override

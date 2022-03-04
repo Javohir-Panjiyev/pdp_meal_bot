@@ -1,14 +1,14 @@
 package com.example.pdp_meal.telegram.handlers;
 
 
-import com.example.pdp_meal.dto.auth.AuthUserCreateDto;
 import com.example.pdp_meal.dto.auth.AuthUserDto;
-import com.example.pdp_meal.enums.Role;
+import com.example.pdp_meal.dto.feedback.FeedBackCreateDto;
+import com.example.pdp_meal.enums.FeedBackType;
 import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.repository.AuthUserRepository;
 import com.example.pdp_meal.service.auth.AuthUserService;
+import com.example.pdp_meal.service.fedback.FeedBackService;
 import com.example.pdp_meal.telegram.BotProcess;
-import com.example.pdp_meal.telegram.buttons.InlineBoards;
 import com.example.pdp_meal.telegram.buttons.MarkupBoards;
 import com.example.pdp_meal.telegram.emojis.Emojis;
 import com.example.pdp_meal.telegram.telegramService.ProcessService;
@@ -33,6 +33,7 @@ public class MessageHandler {
     private final RegisterService registerService;
     private final AuthUserService userService;
     private final ProcessService processService;
+    private final FeedBackService feedBackService;
     private final BotProcess BOT;
 
 
@@ -64,12 +65,29 @@ public class MessageHandler {
         } else if (message.getText().equals("/profile") || message.getText().equals(Emojis.PROFILE + "Profile")) {
             service.profile(chatId);
         } else if (message.getText().equals(Emojis.GO_BACK + "Back")) {
+            service.changeStatus(chatId, State.REGISTERED.getName());
+            service.mainMenu(chatId, user.getRole());
+        } else if (message.getText().equals(Emojis.OFFER + "Offer") ||
+                message.getText().equals(Emojis.DISAPPROVAL + "Disapproval")) {
+            service.changeStatus(chatId, State.OFFER.getName());
+            SendMessage message1 = new SendMessage(chatId, "Your feedBack : ");
+            message1.setReplyMarkup(MarkupBoards.back());
+            BOT.executeMessage(message1);
+        } else if (user.getState().equals(State.OFFER.getName())) {
+            feedBackService.create(new FeedBackCreateDto(message.getText(), user.getId(), FeedBackType.POSITIVE.name()));
+            service.changeStatus(chatId, State.REGISTERED.getName());
+            SendMessage sendMessage = new SendMessage(chatId, "Thank you for your feedback " + Emojis.SMILE);
+            BOT.executeMessage(sendMessage);
+            service.mainMenu(chatId, user.getRole());
+        } else if (user.getState().equals(State.DISAPPROVAL.getName())) {
+            feedBackService.create(new FeedBackCreateDto(message.getText(), user.getId(), FeedBackType.NEGATIVE.name()));
+            service.changeStatus(chatId, State.REGISTERED.getName());
+            SendMessage sendMessage = new SendMessage(chatId, "Thank you for your feedback " + Emojis.SMILE);
+            BOT.executeMessage(sendMessage);
             service.mainMenu(chatId, user.getRole());
         }
 
     }
-
-
 
 
 }

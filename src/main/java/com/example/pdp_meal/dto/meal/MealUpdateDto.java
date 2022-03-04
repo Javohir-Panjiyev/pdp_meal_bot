@@ -25,8 +25,6 @@ public class MealUpdateDto extends GenericDto {
 
     private String ingredient;
 
-    @NotBlank
-    private MultipartFile pathPhoto;
 
     @NotBlank
     private String fileId;

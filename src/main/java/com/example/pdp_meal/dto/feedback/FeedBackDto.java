@@ -13,6 +13,9 @@ import lombok.*;
 public class FeedBackDto extends GenericDto {
 
     private String message;
+
+    private Integer userId;
+
     private String type;
 
 

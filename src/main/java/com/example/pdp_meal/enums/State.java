@@ -17,7 +17,9 @@ public enum State {
     START("START"),
     DEPARTMENT("DEPARTMENT"),
     POSITION("POSITION"),
-    DONE("DONE");
+    DONE("DONE"),
+    OFFER("OFFER"),
+    DISAPPROVAL("DISAPPROVAL");
 
 
     private final String name;
