@@ -31,8 +31,8 @@ public class DailyMenuController extends AbstractController<DailyMenuService> {
     @GetMapping("/{id}")
     public HttpEntity<?> getDailyMenu(@PathVariable Integer id) {
         try {
-            DailyMenuDto orderDto = service.get( id );
-            return ResponseEntity.ok( orderDto );
+            DailyMenuDto dailyMenuDto = service.get( id );
+            return ResponseEntity.ok( dailyMenuDto );
         } catch (NotFoundException e) {
             return ResponseEntity.status( HttpStatus.NOT_FOUND ).body( e.getMessage() );
         }
@@ -51,10 +51,7 @@ public class DailyMenuController extends AbstractController<DailyMenuService> {
 
     @PutMapping("/{id}")
     public ResponseEntity<?>updateDailyMenu(@PathVariable(name = "id") Integer id,@RequestBody DailyMenuUpdateDto dailyMenuUpdateDto){
-
         return new ResponseEntity<>(service.update(dailyMenuUpdateDto), HttpStatus.OK);
-
-
     }
 
 

@@ -1,21 +1,17 @@
 package com.example.pdp_meal.telegram.handlers;
 
 
-import com.example.pdp_meal.dto.auth.AuthUserCreateDto;
 import com.example.pdp_meal.dto.auth.AuthUserDto;
 import com.example.pdp_meal.dto.feedback.FeedBackCreateDto;
 import com.example.pdp_meal.enums.FeedBackType;
 import com.example.pdp_meal.enums.Role;
 import com.example.pdp_meal.enums.State;
-import com.example.pdp_meal.repository.AuthUserRepository;
 import com.example.pdp_meal.service.auth.AuthUserService;
 import com.example.pdp_meal.service.fedback.FeedBackService;
 import com.example.pdp_meal.telegram.BotProcess;
-import com.example.pdp_meal.telegram.buttons.InlineBoards;
 import com.example.pdp_meal.telegram.buttons.MarkupBoards;
 import com.example.pdp_meal.telegram.emojis.Emojis;
 import com.example.pdp_meal.telegram.telegramService.MealServiceTelegram;
-import com.example.pdp_meal.telegram.telegramService.ProcessService;
 import com.example.pdp_meal.telegram.telegramService.RegisterService;
 import com.example.pdp_meal.telegram.telegramService.TelegramService;
 import lombok.RequiredArgsConstructor;
@@ -93,6 +89,11 @@ public class MessageHandler {
             SendMessage offers = new SendMessage();
             offers.setChatId(chatId);
             ///logic
+        }
+        else if(message.getText().equals((Emojis.ORDERS + "Orders"))) {
+            if(user.getRole().equals("ADMIN")) {
+
+            }
         }
         // for Admin Disapprovals see
         else if (message.getText().equals(Emojis.DISAPPROVAL + "Disapproval")

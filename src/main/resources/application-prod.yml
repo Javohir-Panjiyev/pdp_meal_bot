@@ -2,9 +2,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/pdpmealsystem
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=pdp_meal
     username: postgres
-    password: umidmaster98
+    password: akhrullo
   jpa:
     show-sql: true
     hibernate:

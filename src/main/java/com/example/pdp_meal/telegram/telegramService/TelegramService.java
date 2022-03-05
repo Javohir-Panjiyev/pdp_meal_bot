@@ -165,4 +165,12 @@ public class TelegramService {
         SendMessage aboutUs = new SendMessage(chatId, "This bot \uD83E\uDD16 will be modernized by the PDP  academy’s B-4 team.\n" +
                 "If you have any questions ❔ or suggestions , please contact \uD83E\uDD35 @umidmaster98");
     }
+
+    public void getOrders(String chatId) {
+        SendMessage msg = new SendMessage();
+        msg.setChatId(chatId);
+        msg.setText("");
+
+        BOT.executeMessage(msg);
+    }
 }

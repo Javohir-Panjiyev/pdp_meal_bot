@@ -31,6 +31,17 @@ public class DailyMenuService extends AbstractService<DailyMenuRepository, Daily
         return dailyMenu.getId();
     }
 
+    public void createDailyMenu(List<DailyMenuCreateDto> dailyMenus) {
+        clearDailyMenu();
+        for (DailyMenuCreateDto dailyMenu : dailyMenus) {
+            create(dailyMenu);
+        }
+    }
+
+    private void clearDailyMenu() {
+        repository.clearDailyMenu();
+    }
+
     @Override
     public Void delete(Integer id) {
         repository.deleteById(id);

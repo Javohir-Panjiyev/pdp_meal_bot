@@ -28,6 +28,7 @@ public class BotProcess extends TelegramLongPollingBot {
     public  final Map<String, AuthUserCreateDto> userHashMap = new HashMap<>();
 
 
+
     public BotProcess(@Lazy UpdateHandler updateHandler) {
         this.updateHandler = updateHandler;
     }
@@ -35,12 +36,12 @@ public class BotProcess extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "examumidbot";
+        return "@my_CurrencyBot";
     }
 
     @Override
     public String getBotToken() {
-        return "5239147724:AAHbIqPRqRwWWP8F0QxhEy1BjThWrrjSyak";
+        return "5024981893:AAFnvHtUmc7lo6UGgExDbOhSThYjE_dFqQA";
     }
 
     @Override
