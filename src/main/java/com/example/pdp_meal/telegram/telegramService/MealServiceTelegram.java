@@ -69,7 +69,7 @@ public class MealServiceTelegram {
                     BOT.mealHashMap.put(chatID, mealCreateDto);
                     mealService.create(mealCreateDto);
                     BOT.mealState.put(chatID, State.START.getName());
-                    SendMessage message1 = new SendMessage(chatID, "Successfully registered");
+                    SendMessage message1 = new SendMessage(chatID, "Successfully added meal");
                     message1.setReplyMarkup(MarkupBoards.mainMenu(user.getRole()));
                     BOT.executeMessage(message1);
 //                } else {
