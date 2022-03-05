@@ -18,6 +18,14 @@ public enum State {
     DEPARTMENT("DEPARTMENT"),
     POSITION("POSITION"),
     DONE("DONE"),
+
+
+    /// meal state
+
+    MEAL_NAME("MEAL_NAME"),
+    MEAL_INGREDIENT("MEAL_INGREDIENT"),
+    MEAL_PATH("MEAL_PATH"),
+    MEAL_ADDED("MEAL_ADDED"),
     OFFER("OFFER"),
     DISAPPROVAL("DISAPPROVAL");
 

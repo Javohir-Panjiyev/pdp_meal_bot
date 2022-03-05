@@ -1,6 +1,7 @@
 package com.example.pdp_meal.telegram.telegramService;
 
 import com.example.pdp_meal.dto.auth.AuthUserCreateDto;
+import com.example.pdp_meal.dto.meal.MealCreateDto;
 import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.telegram.BotProcess;
 import com.example.pdp_meal.telegram.buttons.InlineBoards;
@@ -10,9 +11,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage.DeleteMessageBuilder;
 import org.telegram.telegrambots.meta.api.objects.Contact;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ForceReplyKeyboard;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.util.Objects;
 
@@ -31,6 +34,7 @@ public class RegisterService {
         if (Objects.isNull(BOT.userHashMap.get(chatID))) {
             BOT.userHashMap.put(chatID, new AuthUserCreateDto());
         }
+
 
         if (Objects.isNull(state)) {
             SendMessage sendMessage = new SendMessage(chatID, "Enter your full name please");
@@ -57,6 +61,7 @@ public class RegisterService {
             BOT.userHashMap.put(chatID, userCreateDto);
 
             SendMessage sendMessage = new SendMessage(chatID, "Enter your password please");
+            Integer id = sendMessage.getReplyToMessageId();
             sendMessage.setReplyMarkup(new ForceReplyKeyboard());
             BOT.executeMessage(sendMessage);
             BOT.userState.put(chatID, State.PHONE_NUMBER.getName());

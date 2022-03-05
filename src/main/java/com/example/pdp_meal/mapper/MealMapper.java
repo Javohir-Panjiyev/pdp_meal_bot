@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper(componentModel = "spring")
 public interface MealMapper extends BaseMapper<Meal, MealDto, MealCreateDto, MealUpdateDto> {
-    @Mapping(target = "pathPhoto", ignore = true)
+
     @Override
     Meal fromCreateDto(MealCreateDto mealCreateDto);
 
-    @Mapping(target = "pathPhoto", ignore = true)
+
     @Override
     Meal fromUpdateDto(MealUpdateDto mealUpdateDto);
 }

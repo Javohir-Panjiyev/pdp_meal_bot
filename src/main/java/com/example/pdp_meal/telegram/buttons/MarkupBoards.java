@@ -29,14 +29,17 @@ public class MarkupBoards {
 
     public static ReplyKeyboardMarkup mainMenu(String role) {
         if (role.equals(Role.ADMIN.name())){
-            KeyboardRow row = new KeyboardRow();
-            row.add(new KeyboardButton(Emojis.FEEDBACK + "Feedbacks"));
-            row.add(new KeyboardButton(Emojis.ORDERS + "Orders"));
             KeyboardRow row1 = new KeyboardRow();
-            row1.add(new KeyboardButton(Emojis.PROFILE + "Profile"));
-            row1.add(new KeyboardButton(Emojis.ABOUT_US + "About us"));
+            row1.add(new KeyboardButton(Emojis.ADD + "Meal add"));
 
-            board.setKeyboard(List.of(row, row1));
+            KeyboardRow row2 = new KeyboardRow();
+            row2.add(new KeyboardButton(Emojis.FEEDBACK + "Feedbacks"));
+            row2.add(new KeyboardButton(Emojis.ORDERS + "Orders"));
+            KeyboardRow row3 = new KeyboardRow();
+            row3.add(new KeyboardButton(Emojis.PROFILE + "Profile"));
+            row3.add(new KeyboardButton(Emojis.ABOUT_US + "About us"));
+
+            board.setKeyboard(List.of(row1, row2, row3));
         }
         //row1
        if (role.equals(Role.USER.name())) {
@@ -77,6 +80,7 @@ public class MarkupBoards {
     public static ReplyKeyboardMarkup back(){
         //row1
         KeyboardRow row1 = new KeyboardRow();
+        row1.add(new KeyboardButton(Emojis.GO_BACK+"Back"));
         row1.add(new KeyboardButton(Emojis.GO_BACK + "Back"));
         board.setKeyboard(List.of(row1));
         board.setResizeKeyboard(true);
