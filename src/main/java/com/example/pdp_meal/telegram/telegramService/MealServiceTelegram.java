@@ -58,16 +58,6 @@ public class MealServiceTelegram {
             if (message.hasPhoto()) {
                 List<PhotoSize> photo = message.getPhoto();
                 String fileId = photo.stream().findFirst().get().getFileId();
-                String filePath = photo.get(0).getFilePath();
-                Integer fileSize = photo.get(0).getFileSize();
-                Integer height = photo.get(0).getHeight();
-                Integer width = photo.get(0).getWidth();
-                System.out.println(filePath);
-                System.out.println(fileSize);
-                System.out.println(height);
-                System.out.println(width);
-                System.out.println(fileId);
-
 
 //                Document document = message.getDocument();
 //                String mimeType = message.getDocument().getMimeType();
@@ -78,14 +68,14 @@ public class MealServiceTelegram {
                     mealCreateDto.setFileId(fileId);
                     BOT.mealHashMap.put(chatID, mealCreateDto);
                     mealService.create(mealCreateDto);
-                    BOT.mealState.put(chatID, State.MEAL_ADDED.getName());
+                    BOT.mealState.put(chatID, State.START.getName());
                     SendMessage message1 = new SendMessage(chatID, "Successfully registered");
                     message1.setReplyMarkup(MarkupBoards.mainMenu(user.getRole()));
                     BOT.executeMessage(message1);
 //                } else {
-                    SendMessage sendMessage = new SendMessage(chatID, "Send another image is not valid");
-                    BOT.executeMessage(sendMessage);
-                    BOT.mealState.put(chatID, State.MEAL_PATH.getName());
+//                    SendMessage sendMessage = new SendMessage(chatID, "Send another image is not valid");
+//                    BOT.executeMessage(sendMessage);
+//                    BOT.mealState.put(chatID, State.MEAL_PATH.getName());
                 }
             }
         }

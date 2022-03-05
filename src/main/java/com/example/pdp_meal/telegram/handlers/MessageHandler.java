@@ -30,13 +30,13 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class MessageHandler {
 
-    private final AuthUserRepository authRepository;
+
 
 
     private final TelegramService service;
     private final RegisterService registerService;
     private final AuthUserService userService;
-    private final ProcessService processService;
+
     private final FeedBackService feedBackService;
     private final MealServiceTelegram mealServiceTelegram;
     private final BotProcess BOT;
