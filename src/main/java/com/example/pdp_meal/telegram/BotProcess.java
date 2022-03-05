@@ -32,12 +32,12 @@ public class BotProcess extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "bboottttttttttbot";
+        return "examumidbot";
     }
 
     @Override
     public String getBotToken() {
-        return "5240268613:AAHPgrEsfBCZTR2i7LAfL6fnq5dwmQYpuKE";
+        return "5239147724:AAHbIqPRqRwWWP8F0QxhEy1BjThWrrjSyak";
     }
 
     @Override

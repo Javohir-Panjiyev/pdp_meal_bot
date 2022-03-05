@@ -65,6 +65,8 @@ public class MessageHandler {
             service.feedback(chatId);
         } else if (message.getText().equals("/profile") || message.getText().equals(Emojis.PROFILE + "Profile")) {
             service.profile(chatId);
+        }else if (message.getText().equals(Emojis.MEAL + "Order")) {
+            service.ordering(chatId);
         } else if (message.getText().equals(Emojis.GO_BACK + "Back")) {
             service.changeStatus(chatId, State.REGISTERED.getName());
             service.mainMenu(chatId, user.getRole());

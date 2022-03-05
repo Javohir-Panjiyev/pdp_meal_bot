@@ -55,14 +55,15 @@ public class TelegramService {
 
     public void ordering(String chatId) {
         AuthUser byChatId = userRepository.findByChatId(chatId);
-        if(byChatId.getState().equals(State.ORDERING.getName())){
-            BOT.executeMessage(getMenu(chatId));
-        }
+        if(byChatId.getState().equals(State.ORDERING.getName())) BOT.executeMessage(getMenu(chatId));
+        AuthUser user = userRepository.findByChatId(chatId);
+        user.setState(State.REGISTERED.getName());
+        userRepository.save(user);
     }
 
     private SendMessage getMenu(String chatId) {
         List<DailyMenuDto> all = dailyMenuService.getAll();
-        ReplyKeyboard menu = InlineBoards.menu();
+        ReplyKeyboard menu = InlineBoards.menu(all);
         String menuString = getMenuString(all);
         SendMessage msg = new SendMessage(chatId, menuString);
         msg.setReplyMarkup(menu);
@@ -72,10 +73,16 @@ public class TelegramService {
     private String getMenuString(List<DailyMenuDto> all) {
         StringBuilder menus = new StringBuilder();
         menus.append("Today's menu.\n" +
-                "Please select the appropriate number of meals ");
-        for (int i = 0; i < 5; i++) {
-            MealDto mealDto = mealService.get(all.get(i).getMealId());
-            menus.append(i + 1).append(". ").append(mealDto.getName()).append("\n");
+                "Please select the appropriate number of meals \n\n");
+
+        int counter = 1;
+        if(all.isEmpty()){
+            return "Meals Not Found \nContact with your Admin";
+        }
+        for (DailyMenuDto dailyMenuDto : all) {
+            MealDto mealDto = mealService.get(dailyMenuDto.getMealId());
+            menus.append(counter).append(". ").append(mealDto.getName()).append("\n");
+            counter++;
         }
         return menus.toString();
     }
