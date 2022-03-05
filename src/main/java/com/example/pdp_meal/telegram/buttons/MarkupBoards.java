@@ -81,7 +81,6 @@ public class MarkupBoards {
         //row1
         KeyboardRow row1 = new KeyboardRow();
         row1.add(new KeyboardButton(Emojis.GO_BACK+"Back"));
-        row1.add(new KeyboardButton(Emojis.GO_BACK + "Back"));
         board.setKeyboard(List.of(row1));
         board.setResizeKeyboard(true);
         board.setSelective(true);
