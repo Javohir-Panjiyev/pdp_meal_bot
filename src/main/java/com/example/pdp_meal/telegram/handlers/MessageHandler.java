@@ -76,6 +76,9 @@ public class MessageHandler {
         } else if (message.getText().equals("/support") ||
                 message.getText().equals(Emojis.SUPPORT + "Support")) {
             service.support(chatId);
+        } else if (message.getText().equals("/about_us") ||
+                message.getText().equals(Emojis.ABOUT_US + "About us")) {
+            service.aboutUs(chatId);
         } else if (message.getText().equals("/feedback") ||
                 message.getText().equals(Emojis.FEEDBACK + "Feedback")) {
             service.feedback(chatId);

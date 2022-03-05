@@ -1,6 +1,7 @@
 package com.example.pdp_meal.telegram;
 
 import com.example.pdp_meal.dto.auth.AuthUserCreateDto;
+import com.example.pdp_meal.dto.meal.MealCreateDto;
 import com.example.pdp_meal.telegram.handlers.UpdateHandler;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,8 @@ public class BotProcess extends TelegramLongPollingBot {
 
     private final UpdateHandler updateHandler;
     public  final Map<String, String> userState = new HashMap<>();
+    public  final Map<String, String> mealState = new HashMap<>();
+    public  final Map<String, MealCreateDto> mealHashMap = new HashMap<>();
     public  final Map<String, AuthUserCreateDto> userHashMap = new HashMap<>();
 
 

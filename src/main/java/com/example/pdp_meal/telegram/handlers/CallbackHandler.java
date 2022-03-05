@@ -65,6 +65,8 @@ public class CallbackHandler {
 
             case "1", "2", "3", "4", "5" -> {
                 telegramService.orderMeal(chatID, data);
+                DeleteMessage deleteMessage = new DeleteMessage(chatID, message.getMessageId());
+                BOT.executeMessage(deleteMessage);
             }
 
 
