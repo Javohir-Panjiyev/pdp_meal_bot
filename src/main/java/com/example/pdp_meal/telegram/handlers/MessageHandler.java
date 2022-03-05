@@ -111,7 +111,7 @@ public class MessageHandler {
             SendMessage message1 = new SendMessage(chatId, "Your feedBack : ");
             message1.setReplyMarkup(MarkupBoards.back());
             BOT.executeMessage(message1);
-        } else if (message.getText().equals(Emojis.DISAPPROVAL + "Offer")) {
+        } else if (message.getText().equals(Emojis.DISAPPROVAL + "Disapproval")) {
             service.changeStatus(chatId, State.DISAPPROVAL.getName());
             SendMessage message1 = new SendMessage(chatId, "Your feedBack : ");
             message1.setReplyMarkup(MarkupBoards.back());
