@@ -101,14 +101,18 @@ public class MessageHandler {
         } else if (message.getText().equals("/profile") ||
                 message.getText().equals(Emojis.PROFILE + "Profile")) {
             service.profile(chatId);
-        }else if (message.getText().equals(Emojis.MEAL + "Order")) {
+        } else if (message.getText().equals(Emojis.MEAL + "Order")) {
             service.ordering(chatId);
         } else if (message.getText().equals(Emojis.GO_BACK + "Back")) {
             service.changeStatus(chatId, State.REGISTERED.getName());
             service.mainMenu(chatId, user.getRole());
-        } else if (message.getText().equals(Emojis.OFFER + "Offer") ||
-                message.getText().equals(Emojis.DISAPPROVAL + "Disapproval")) {
+        } else if (message.getText().equals(Emojis.OFFER + "Offer")) {
             service.changeStatus(chatId, State.OFFER.getName());
+            SendMessage message1 = new SendMessage(chatId, "Your feedBack : ");
+            message1.setReplyMarkup(MarkupBoards.back());
+            BOT.executeMessage(message1);
+        } else if (message.getText().equals(Emojis.DISAPPROVAL + "Offer")) {
+            service.changeStatus(chatId, State.DISAPPROVAL.getName());
             SendMessage message1 = new SendMessage(chatId, "Your feedBack : ");
             message1.setReplyMarkup(MarkupBoards.back());
             BOT.executeMessage(message1);
