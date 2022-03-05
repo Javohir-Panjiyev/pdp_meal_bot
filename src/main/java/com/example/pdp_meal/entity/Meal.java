@@ -21,8 +21,6 @@ public class Meal implements BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    private String pathPhoto;
-
     private Instant createDate = Instant.now();
 
     private String fileId;

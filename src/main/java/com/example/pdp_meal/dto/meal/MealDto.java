@@ -19,10 +19,7 @@ import java.time.Instant;
 public class MealDto extends GenericDto {
 
     private String name;
-
     private String ingredient;
-
-    private String pathPhoto;
 
     private String fileId;
 

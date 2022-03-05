@@ -37,15 +37,14 @@ public class MealService extends AbstractService<MealRepository, MealMapper, Mea
     }
 
 
-    @PreAuthorize(value = "hasRole('ADMIN')")
+//    @PreAuthorize(value = "hasRole('ADMIN')")
     @Override
     public Integer create(MealCreateDto createDto) {
 //        MultipartFile file = createDto.getPathPhoto();
         Meal meal = mapper.fromCreateDto(createDto);
 //        String store = fileStorageService.store(file);
 //        meal.setPathPhoto(UPLOAD_DIRECTORY + store);
-        Meal savedMeal = repository.save(meal);
-        return savedMeal.getId();
+        return repository.save(meal).getId();
     }
 
     @PreAuthorize(value = "hasRole('ADMIN')")
@@ -75,4 +74,6 @@ public class MealService extends AbstractService<MealRepository, MealMapper, Mea
     public MealDto get(Integer id) {
         return mapper.toDto(repository.findById(id).get());
     }
+
+
 }

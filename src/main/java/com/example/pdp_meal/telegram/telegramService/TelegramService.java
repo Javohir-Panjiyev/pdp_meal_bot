@@ -96,7 +96,7 @@ public class TelegramService {
     }
 
     public void help(String chatId) {
-       String help = "\uD83E\uDD16  This bot will help \uD83C\uDD98 you to choose  and order a daily lunch \uD83E\uDD57 on weekdays . You can manipulate \uD83C\uDF9B the bot \uD83E\uDD16 with these commands.\n" +
+        String help = "\uD83E\uDD16  This bot will help \uD83C\uDD98 you to choose  and order a daily lunch \uD83E\uDD57 on weekdays . You can manipulate \uD83C\uDF9B the bot \uD83E\uDD16 with these commands.\n" +
                 "\n" +
                 "1.  /start - ✅ Start\n" +
                 "2.  /feedback - ♻️ Feedback\n" +
@@ -111,14 +111,14 @@ public class TelegramService {
     }
 
     private void execute(String chatId, String message) {
-        SendMessage message1=new SendMessage(chatId, message);
+        SendMessage message1 = new SendMessage(chatId, message);
         BOT.executeMessage(message1);
     }
 
     public void support(String chatId) {
-       String help = "☹️ Having trouble with " +
-               "the \uD83E\uDD16 bot? Contact \uD83D\uDCF2 Support" +
-               " \uD83E\uDD1D . Support username: @PDPSupportBot";
+        String help = "☹️ Having trouble with " +
+                "the \uD83E\uDD16 bot? Contact \uD83D\uDCF2 Support" +
+                " \uD83E\uDD1D . Support username: @PDPSupportBot";
         execute(chatId, help);
     }
 
@@ -129,7 +129,7 @@ public class TelegramService {
     }
 
     public void mainMenu(String chatId, String role) {
-        SendMessage message1 = new SendMessage(chatId, Emojis.right +"Main menu" + Emojis.left);
+        SendMessage message1 = new SendMessage(chatId, Emojis.right + "Main menu" + Emojis.left);
         message1.setReplyMarkup(MarkupBoards.mainMenu(role));
         BOT.executeMessage(message1);
     }
