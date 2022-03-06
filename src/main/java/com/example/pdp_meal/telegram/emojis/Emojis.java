@@ -23,19 +23,19 @@ public class Emojis {
     public static final String GO_BACK = "\uD83D\uDD19";
     public static final String OK = "\u2705";
     public static final String CANCEL = "\u274C";
-    public static final String NEXT= "\u27A1\uFE0F";
-    public static final String PREV= "\u2B05\uFE0F";
-    public static final String PROFILE= "ℹ️";
-    public static final String SUPPORT= "\uD83E\uDD16";
-    public static final String OFFER= "\uD83D\uDCDD";
-    public static final String DISAPPROVAL= "\uD83D\uDCDD";
-    public static final String SMILE= "\uD83D\uDE0A";
-    public static final String ACADEMIC= "";
-    public static final String MARKETING= "";
-    public static final String ECONOMIC= "";
+    public static final String NEXT = "\u27A1\uFE0F";
+    public static final String PREV = "\u2B05\uFE0F";
+    public static final String PROFILE = "ℹ️";
+    public static final String SUPPORT = "\uD83E\uDD16";
+    public static final String OFFER = "\uD83D\uDCDD";
+    public static final String DISAPPROVAL = "\uD83D\uDCDD";
+    public static final String SMILE = "\uD83D\uDE0A";
+    public static final String ACADEMIC = "";
+    public static final String MARKETING = "";
+    public static final String ECONOMIC = "";
     public static final String MEAL = "\uD83C\uDF56";
-    public static final String ORDERS= "\uD83C\uDF5A";
-
+    public static final String ORDERS = "\uD83C\uDF5A";
+    public static final String MENU = "\uD83C\uDF75";
 
 
 }

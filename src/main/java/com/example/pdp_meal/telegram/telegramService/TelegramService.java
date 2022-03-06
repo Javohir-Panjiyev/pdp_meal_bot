@@ -173,4 +173,16 @@ public class TelegramService {
 
         BOT.executeMessage(msg);
     }
+
+    public void createMenu(String chatId) {
+        List<MealDto> meals = mealService.getAll();
+        ReplyKeyboard allMeals = InlineBoards.getAllMeals(meals);
+        StringBuilder menus = new StringBuilder();
+        for (int i = 0; i < meals.size(); i++) {
+            menus.append(i + 1).append(". ").append(meals.get(i).getName()).append("\n");
+        }
+        SendMessage message = new SendMessage(chatId, menus.toString());
+        message.setReplyMarkup(allMeals);
+        BOT.executeMessage(message);
+    }
 }
