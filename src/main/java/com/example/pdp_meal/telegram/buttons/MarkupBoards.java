@@ -31,7 +31,7 @@ public class MarkupBoards {
         if (role.equals(Role.ADMIN.name())){
             KeyboardRow row1 = new KeyboardRow();
             row1.add(new KeyboardButton(Emojis.ADD + "Meal add"));
-
+            row1.add(new KeyboardButton(Emojis.MENU + "Create Menu"));
 
             KeyboardRow row2 = new KeyboardRow();
             row2.add(new KeyboardButton(Emojis.FEEDBACK + "Feedbacks"));
