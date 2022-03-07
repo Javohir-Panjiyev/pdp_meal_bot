@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
 
 
 @Getter
@@ -21,6 +22,6 @@ public class MealOrder implements BaseEntity {
 
     private Integer mealId;
 
-    private Instant createDate = Instant.now();
+    private String createDate = LocalDate.now().toString();
 
 }

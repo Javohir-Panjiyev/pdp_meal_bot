@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -20,5 +21,5 @@ public class OrderDto extends GenericDto {
 
     private Integer mealId;
 
-    private Instant createDate = Instant.now();
+    private String createDate = LocalDate.now().toString();
 }

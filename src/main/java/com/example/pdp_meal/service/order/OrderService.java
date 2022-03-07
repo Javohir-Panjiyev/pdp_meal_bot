@@ -1,6 +1,7 @@
 package com.example.pdp_meal.service.order;
 
 
+import com.example.pdp_meal.dto.order.MealOrderCountDto;
 import com.example.pdp_meal.dto.order.OrderCreateDto;
 import com.example.pdp_meal.dto.order.OrderDto;
 import com.example.pdp_meal.dto.order.OrderUpdateDto;
@@ -14,6 +15,8 @@ import com.example.pdp_meal.validator.order.OrderValidator;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -31,6 +34,21 @@ implements GenericCrudService<MealOrder, OrderDto, OrderCreateDto, OrderUpdateDt
                            OrderValidator validator) {
         super( repository, mapper, validator );
     }
+//
+//    public List<MealOrderCountDto> getAllOrdersCount() {
+//       return repository.getAll();
+//    }
+
+    public List<MealOrderCountDto> ordersNumber() {
+        return repository.ordersCount(LocalDate.now().toString()).stream().map(this::process).toList();
+    }
+
+
+
+    private MealOrderCountDto process(Object[] objects) {
+        return new MealOrderCountDto(String.valueOf(objects[0]), (Long) objects[1]);
+    }
+
 
     @Override
     public Integer create(OrderCreateDto createDto){

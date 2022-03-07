@@ -4,6 +4,7 @@ package com.example.pdp_meal.telegram.telegramService;
 import com.example.pdp_meal.dto.dailyMenu.DailyMenuCreateDto;
 import com.example.pdp_meal.dto.dailyMenu.DailyMenuDto;
 import com.example.pdp_meal.dto.meal.MealDto;
+import com.example.pdp_meal.dto.order.MealOrderCountDto;
 import com.example.pdp_meal.dto.order.OrderCreateDto;
 import com.example.pdp_meal.entity.AuthUser;
 import com.example.pdp_meal.entity.MealOrder;
@@ -22,6 +23,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.util.List;
+import java.util.Locale;
 
 import static java.lang.Thread.sleep;
 
@@ -36,13 +38,12 @@ public class TelegramService {
     private final OrderService orderService;
 
 
-
     public void getPhone(String chatId) {
 
     }
 
-    public void changeStatus(String chatId,String state){
-        userRepository.changeStatus(chatId,state);
+    public void changeStatus(String chatId, String state) {
+        userRepository.changeStatus(chatId, state);
     }
 
     public void getFullName(String chatId) {
@@ -55,7 +56,7 @@ public class TelegramService {
 
     public void ordering(String chatId) {
         AuthUser byChatId = userRepository.findByChatId(chatId);
-        if(byChatId.getState().equals(State.ORDERING.getName())) BOT.executeMessage(getMenu(chatId));
+        if (byChatId.getState().equals(State.ORDERING.getName())) BOT.executeMessage(getMenu(chatId));
         AuthUser user = userRepository.findByChatId(chatId);
         user.setState(State.REGISTERED.getName());
         userRepository.save(user);
@@ -76,7 +77,7 @@ public class TelegramService {
                 "Please select the appropriate number of meals \n\n");
 
         int counter = 1;
-        if(all.isEmpty()){
+        if (all.isEmpty()) {
             return "Meals Not Found \nContact with your Admin";
         }
         for (DailyMenuDto dailyMenuDto : all) {
@@ -169,7 +170,27 @@ public class TelegramService {
     public void getOrders(String chatId) {
         SendMessage msg = new SendMessage();
         msg.setChatId(chatId);
-        msg.setText("");
+
+        StringBuilder str = new StringBuilder();
+        List<MealOrderCountDto> mealOrderCountDtos = orderService.ordersNumber();
+        int i = 1;
+
+        str.append("\uD83D\uDCDD Buyurtma uchun Yakuniy Hisobot : \n\n");
+        str.append("--------------------------------------------------------\n\n");
+
+        if (mealOrderCountDtos.size() == 0) {
+            str.append("Hali buyurtmalar qabul qilinmadi ...");
+        } else {
+            for (MealOrderCountDto mealOrderCountDto : mealOrderCountDtos) {
+                str.append(i).append(". ").append(mealOrderCountDto.getMealId().toUpperCase(Locale.ROOT)).append("  -  ").append(mealOrderCountDto.getCountMeal()).append("\n");
+                i++;
+            }
+
+            str.append("\n\n--------------------------------------------------------\n");
+            str.append("\nBuyurtma berish \uD83D\uDC68\uD83C\uDFFB\u200D\uD83C\uDF73  -  +998909009972");
+        }
+
+        msg.setText(str.toString());
 
         BOT.executeMessage(msg);
     }

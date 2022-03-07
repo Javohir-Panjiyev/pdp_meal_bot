@@ -92,7 +92,7 @@ public class MessageHandler {
         }
         else if(message.getText().equals((Emojis.ORDERS + "Orders"))) {
             if(user.getRole().equals("ADMIN")) {
-
+                service.getOrders(chatId);
             }
         }
         // for Admin Disapprovals see
