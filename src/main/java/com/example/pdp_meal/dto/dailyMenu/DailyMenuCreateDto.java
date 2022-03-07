@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,5 +16,5 @@ import java.time.Instant;
 public class DailyMenuCreateDto implements BaseDto {
 
     private Integer mealId;
-    private Instant date;
+    private String date= LocalDate.now().toString();
 }

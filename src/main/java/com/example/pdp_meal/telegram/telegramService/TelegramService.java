@@ -7,7 +7,9 @@ import com.example.pdp_meal.dto.meal.MealDto;
 import com.example.pdp_meal.dto.order.MealOrderCountDto;
 import com.example.pdp_meal.dto.order.OrderCreateDto;
 import com.example.pdp_meal.entity.AuthUser;
+import com.example.pdp_meal.entity.DailyMenu;
 import com.example.pdp_meal.entity.MealOrder;
+import com.example.pdp_meal.enums.Role;
 import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.repository.AuthUserRepository;
 import com.example.pdp_meal.service.dailyMenu.DailyMenuService;
@@ -18,14 +20,17 @@ import com.example.pdp_meal.telegram.buttons.InlineBoards;
 import com.example.pdp_meal.telegram.buttons.MarkupBoards;
 import com.example.pdp_meal.telegram.emojis.Emojis;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
+import javax.websocket.Session;
 import java.util.List;
 import java.util.Locale;
 
-import static java.lang.Thread.sleep;
+
 
 @Service
 @RequiredArgsConstructor
@@ -53,13 +58,13 @@ public class TelegramService {
     public void getPassword(String chatId) {
 
     }
-
-    public void ordering(String chatId) {
+     ///cron job
+//     @Scheduled(cron = "0 0 12-13 * * *")
+     public void ordering(String chatId) {
         AuthUser byChatId = userRepository.findByChatId(chatId);
-        if (byChatId.getState().equals(State.ORDERING.getName())) BOT.executeMessage(getMenu(chatId));
-        AuthUser user = userRepository.findByChatId(chatId);
-        user.setState(State.REGISTERED.getName());
-        userRepository.save(user);
+//        if (byChatId.getState().equals(State.ORDERING.getName()))
+            BOT.executeMessage(getMenu(chatId));
+//
     }
 
     private SendMessage getMenu(String chatId) {
@@ -81,7 +86,7 @@ public class TelegramService {
             return "Meals Not Found \nContact with your Admin";
         }
         for (DailyMenuDto dailyMenuDto : all) {
-            MealDto mealDto = mealService.get(dailyMenuDto.getMealId());
+            MealDto mealDto = mealService.get(dailyMenuDto.getId());
             menus.append(counter).append(". ").append(mealDto.getName()).append("\n");
             counter++;
         }
@@ -150,11 +155,19 @@ public class TelegramService {
     }
 
     public void orderMeal(String chatID, String data) {
-        OrderCreateDto order = new OrderCreateDto();
-        order.setMealId(Integer.parseInt(data));
-        order.setUserId(userRepository.findByChatId(chatID).getId());
-        orderService.create(order);
-        sendAcceptedMesssage(chatID);
+        AuthUser user = userRepository.findAuthUserByChatId(chatID);
+        if (user.getRole().equals(Role.USER.name())) {
+            OrderCreateDto order = new OrderCreateDto();
+            order.setMealId(Integer.parseInt(data));
+            order.setUserId(user.getId());
+            orderService.create(order);
+//            user.setState(State.REGISTERED.getName());
+//            userRepository.save(user);
+        } else if (user.getRole().equals(Role.ADMIN.name())) {
+            DailyMenuCreateDto dto = new DailyMenuCreateDto();
+            dto.setMealId(Integer.parseInt(data));
+            dailyMenuService.create(dto);
+        }
     }
 
     private void sendAcceptedMesssage(String chatID) {
@@ -207,4 +220,6 @@ public class TelegramService {
         message.setReplyMarkup(allMeals);
         BOT.executeMessage(message);
     }
+
+
 }

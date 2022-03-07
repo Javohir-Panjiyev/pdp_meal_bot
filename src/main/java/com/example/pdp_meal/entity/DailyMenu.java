@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDate;
 
 
 @Getter
@@ -17,6 +18,6 @@ public class DailyMenu implements BaseEntity {
     private Integer mealId;
 
 
-    private Instant date;
+    private String date = LocalDate.now().toString();
 
 }

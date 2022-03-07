@@ -14,5 +14,5 @@ import java.time.Instant;
 @NoArgsConstructor
 public class DailyMenuDto extends GenericDto {
     private Integer mealId;
-    private Instant date;
+    private String date;
 }

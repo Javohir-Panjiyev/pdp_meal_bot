@@ -91,6 +91,7 @@ public class MessageHandler {
             ///logic
         } else if (message.getText().equals(Emojis.MENU + "Create Menu") &&
                 user.getRole().equals(Role.ADMIN.name())) {
+
             service.createMenu(chatId);
         }
         else if(message.getText().equals((Emojis.ORDERS + "Orders"))) {

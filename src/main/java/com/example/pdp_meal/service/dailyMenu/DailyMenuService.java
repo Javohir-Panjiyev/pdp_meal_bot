@@ -23,7 +23,7 @@ public class DailyMenuService extends AbstractService<DailyMenuRepository, Daily
         super(repository, mapper, validator);
     }
 
-    @PreAuthorize(value = "hasRole('ADMIN')")
+//    @PreAuthorize(value = "hasRole('ADMIN')")
     @Override
     public Integer create(DailyMenuCreateDto createDto) {
         DailyMenu dailyMenu = mapper.fromCreateDto(createDto);

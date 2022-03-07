@@ -21,4 +21,7 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Integer> {
     @Modifying
     @Query("update AuthUser u set u.state=:state where u.chatId=:chatId")
     void changeStatus(@Param("chatId") String chatId, @Param("state") String state);
+
+
+    AuthUser findAuthUserByChatId(String chatId);
 }

@@ -54,15 +54,13 @@ public class InlineBoards {
     public static ReplyKeyboard menu(List<DailyMenuDto> all) {
         List<InlineKeyboardButton> buttons = new ArrayList<>();
         List<List<InlineKeyboardButton>> allButtons = new ArrayList<>();
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 1; i <= all.size(); i++) {
             InlineKeyboardButton button = new InlineKeyboardButton(i + "");
             button.setCallbackData(i + "");
             buttons.add(button);
-        }
-        InlineKeyboardButton save = new InlineKeyboardButton( "Save");
-        save.setCallbackData("save");
 
-        buttons.add(save);
+        }
+
         allButtons.add(buttons);
 
         board.setKeyboard(allButtons);
@@ -88,6 +86,9 @@ public class InlineBoards {
                     buttons.add(button);
                 }
             }
+            InlineKeyboardButton save = new InlineKeyboardButton( "Save");
+            save.setCallbackData("save");
+            buttons.add(save);
             size = size - 10;
             allButtons.add(buttons);
         }
