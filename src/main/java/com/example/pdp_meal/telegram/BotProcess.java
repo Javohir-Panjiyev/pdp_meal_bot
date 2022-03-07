@@ -24,9 +24,8 @@ public class BotProcess extends TelegramLongPollingBot {
     private final UpdateHandler updateHandler;
     public  final Map<String, String> userState = new HashMap<>();
     public  final Map<String, String> mealState = new HashMap<>();
-    public  final Map<String, MealCreateDto> mealHashMap = new HashMap<>();
     public  final Map<String, AuthUserCreateDto> userHashMap = new HashMap<>();
-
+    public  final Map<String, MealCreateDto> mealHashMap = new HashMap<>();
 
 
     public BotProcess(@Lazy UpdateHandler updateHandler) {
@@ -36,12 +35,12 @@ public class BotProcess extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "@my_CurrencyBot";
+        return "PDP_MEAL";
     }
 
     @Override
     public String getBotToken() {
-        return "5024981893:AAFnvHtUmc7lo6UGgExDbOhSThYjE_dFqQA";
+        return "5113084360:AAGDIqDJa5hLPGwnpbbPbKKMmIlijEGt8mE";
     }
 
     @Override
@@ -64,6 +63,7 @@ public class BotProcess extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
+
     public void executeMessage(SendDocument msg) {
         try {
             execute(msg);

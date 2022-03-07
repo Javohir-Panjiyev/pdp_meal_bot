@@ -63,10 +63,15 @@ public class CallbackHandler {
                 BOT.executeMessage(message1);
             }
 
-            case "1", "2", "3", "4", "5" -> {
+            case "1", "2", "3", "4", "5","6","7","8","9","10" -> {
                 telegramService.orderMeal(chatID, data);
-                DeleteMessage deleteMessage = new DeleteMessage(chatID, message.getMessageId());
-                BOT.executeMessage(deleteMessage);
+//                DeleteMessage deleteMessage = new DeleteMessage(chatID, message.getMessageId());
+//                BOT.executeMessage(deleteMessage);
+            }
+            case "save" ->{
+                SendMessage message1 = new SendMessage(chatID, "Successfully added");
+                message1.setReplyMarkup(MarkupBoards.mainMenu(user.getRole()));
+                BOT.executeMessage(message1);
             }
 
 

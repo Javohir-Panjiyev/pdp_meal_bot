@@ -1,7 +1,6 @@
 package com.example.pdp_meal.telegram.telegramService;
 
 import com.example.pdp_meal.dto.auth.AuthUserCreateDto;
-import com.example.pdp_meal.dto.meal.MealCreateDto;
 import com.example.pdp_meal.enums.State;
 import com.example.pdp_meal.telegram.BotProcess;
 import com.example.pdp_meal.telegram.buttons.InlineBoards;
@@ -11,11 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage.DeleteMessageBuilder;
 import org.telegram.telegrambots.meta.api.objects.Contact;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ForceReplyKeyboard;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.util.Objects;
 
