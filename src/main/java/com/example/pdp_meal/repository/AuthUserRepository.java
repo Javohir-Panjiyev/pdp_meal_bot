@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 public interface AuthUserRepository extends JpaRepository<AuthUser, Integer> {
 
@@ -22,6 +24,7 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Integer> {
     @Query("update AuthUser u set u.state=:state where u.chatId=:chatId")
     void changeStatus(@Param("chatId") String chatId, @Param("state") String state);
 
+    Optional<AuthUser> findById(Integer id);
 
     AuthUser findAuthUserByChatId(String chatId);
 }

@@ -88,21 +88,20 @@ public class MessageHandler {
                 && user.getRole().equals(Role.ADMIN.name())) {
             SendMessage offers = new SendMessage();
             offers.setChatId(chatId);
-            ///logic
+            service.getFeedbacksOffer(chatId);
         } else if (message.getText().equals(Emojis.MENU + "Create Menu") &&
                 user.getRole().equals(Role.ADMIN.name())) {
 
             service.createMenu(chatId);
-        }
-        else if(message.getText().equals((Emojis.ORDERS + "Orders"))) {
-            if(user.getRole().equals("ADMIN")) {
+        } else if (message.getText().equals((Emojis.ORDERS + "Orders"))) {
+            if (user.getRole().equals("ADMIN")) {
                 service.getOrders(chatId);
             }
         }
         // for Admin Disapprovals see
         else if (message.getText().equals(Emojis.DISAPPROVAL + "Disapproval")
                 && user.getRole().equals(Role.ADMIN.name())) {
-            ///logic
+            service.getFeedbacksDisapproval(chatId);
         } else if (message.getText().equals("/profile") ||
                 message.getText().equals(Emojis.PROFILE + "Profile")) {
             service.profile(chatId);
